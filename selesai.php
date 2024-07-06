@@ -94,7 +94,7 @@ if(isset($_SESSION['inv'])){
                     <table class="table table-striped">
                         <tr>
                             <td>Atas Nama</td>
-                            <td>Via Vallen</td>
+                            <td>YOHAFA</td>
                         </tr>
                         <tr>
                             <td>No Rekening</td>

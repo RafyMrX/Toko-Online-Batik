@@ -9,7 +9,7 @@ if(!isset($_SESSION['admin'])){
 <!DOCTYPE html>
 <html>
 <head>
-	<title>ADMIN AL-BAROKAH</title>
+	<title>ADMIN BATIK YOHAFA</title>
 	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="../css/style.css">
 	<link rel="stylesheet" type="text/css" href="../css/bootstrap-theme.css">

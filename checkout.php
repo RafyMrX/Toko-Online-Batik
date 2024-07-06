@@ -1,9 +1,10 @@
-<?php 
+<?php
 include 'header.php';
 $kd = mysqli_real_escape_string($conn,$_GET['kode_cs']);
 $cs = mysqli_query($conn, "SELECT * FROM customer WHERE kode_customer = '$kd'");
 $rows = mysqli_fetch_assoc($cs);
 ?>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <div class="container" style="padding-bottom: 200px">
     <h2 style=" width: 100%; border-bottom: 4px solid #ff8680"><b>Checkout</b></h2>
@@ -19,18 +20,18 @@ $rows = mysqli_fetch_assoc($cs);
                     <th>Qty</th>
                     <th>Sub Total</th>
                 </tr>
-                <?php 
+                <?php
                 $result = mysqli_query($conn, "SELECT k.*, p.harga as harga FROM keranjang k JOIN produk p ON k.kode_produk = p.kode_produk WHERE k.kode_customer = '$kd'");
-                
+
                 $no = 1;
                 $hasil = 0;
                 $jum = 0;
-                while($row = mysqli_fetch_assoc($result)){
+                while ($row = mysqli_fetch_assoc($result)) {
                     $harga = floatval($row['harga']);
                     $qty = intval($row['qty']);
                     $subtotal = $harga * $qty;
                     $hasil += $subtotal;
-                ?>
+                    ?>
                     <tr>
                         <td><?= $no; ?></td>
                         <td><?= $row['nama_produk']; ?></td>
@@ -39,7 +40,7 @@ $rows = mysqli_fetch_assoc($cs);
                         <td><?= $qty; ?></td>
                         <td>Rp.<?= number_format($subtotal); ?></td>
                     </tr>
-                <?php 
+                    <?php
                     $no++;
                 }
                 ?>
@@ -48,7 +49,6 @@ $rows = mysqli_fetch_assoc($cs);
                 </tr>
             </table>
         </div>
-
     </div>
     <div class="row">
         <div class="col-md-6 bg-success">
@@ -58,64 +58,64 @@ $rows = mysqli_fetch_assoc($cs);
     <br>
     <div class="row">
         <div class="col-md-6 bg-warning">
-            <h5>isi Form dibawah ini </h5>
+            <h5>Isi Form dibawah ini </h5>
         </div>
     </div>
     <br>
     <form action="proses/order.php" method="POST">
         <input type="hidden" name="kode_cs" value="<?= $kd; ?>">
         <input type="hidden" id="berat" name="berat" value="<?= $jum; ?>">
-        <input type="hidden" name="prov" value="">
-        <input type="hidden" name="kot" value="">
-        <input type="hidden" name="tipe" value="">
-        <input type="hidden" name="ekspedisi" value="">
-        <input type="hidden" name="paket" value="">
-        <input type="hidden" name="ongkir" value="">
-        <input type="hidden" name="estimasi" value="">
         <div class="form-group">
             <label for="exampleInputEmail1">Nama</label>
             <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Nama" name="nama" style="width: 557px;" value="<?= $rows['nama']; ?>" readonly>
         </div>
         <div class="row">
-            <?php
-            // Get Data Provinsi
-            $curl = curl_init();
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => "http://api.rajaongkir.com/starter/province",
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => "",
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 30,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => "GET",
-                CURLOPT_HTTPHEADER => array(
-                    "key: 8883c249d80d8bccfb0f18077e1ff594"
-                ),
-            ));
-            $response = curl_exec($curl);
-            $err = curl_error($curl);
-            echo "
-            <div class='col-md-6'>
-            <div class='form-group'>
-            <label>Provinsi</label>";
-            echo "<select name='provinsi' id='provinsi' class='form-control'>";
-            echo "<option>Pilih Provinsi Tujuan</option>";
-            $data = json_decode($response, true);
-            for ($i=0; $i < count($data['rajaongkir']['results']); $i++) {
-                echo "<option value='".$data['rajaongkir']['results'][$i]['province_id']."'>".$data['rajaongkir']['results'][$i]['province']."</option>";
-            }
-            echo "</select>
-            </div>
-            </div>
-            ";
-            // Get Data Provinsi
-            ?>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="kabupaten">Kota/Kabupaten</label>
-                    <select id="kabupaten" name="kota" class="form-control">
-                        <option>Pilih Kabupaten/Kota</option>
+                    <label for="provinsi">Provinsi</label>
+                    <select id="provinsi" name="provinsi" class="form-control">
+                        <option value="">Pilih Provinsi</option>
+                        <option value="Aceh">Aceh</option>
+                        <option value="Bali">Bali</option>
+                        <option value="Bangka Belitung">Bangka Belitung</option>
+                        <option value="Banten">Banten</option>
+                        <option value="Bengkulu">Bengkulu</option>
+                        <option value="Gorontalo">Gorontalo</option>
+                        <option value="Jakarta">Jakarta</option>
+                        <option value="Jambi">Jambi</option>
+                        <option value="Jawa Barat">Jawa Barat</option>
+                        <option value="Jawa Tengah">Jawa Tengah</option>
+                        <option value="Jawa Timur">Jawa Timur</option>
+                        <option value="Kalimantan Barat">Kalimantan Barat</option>
+                        <option value="Kalimantan Selatan">Kalimantan Selatan</option>
+                        <option value="Kalimantan Tengah">Kalimantan Tengah</option>
+                        <option value="Kalimantan Timur">Kalimantan Timur</option>
+                        <option value="Kalimantan Utara">Kalimantan Utara</option>
+                        <option value="Kepulauan Riau">Kepulauan Riau</option>
+                        <option value="Lampung">Lampung</option>
+                        <option value="Maluku">Maluku</option>
+                        <option value="Maluku Utara">Maluku Utara</option>
+                        <option value="Nusa Tenggara Barat">Nusa Tenggara Barat</option>
+                        <option value="Nusa Tenggara Timur">Nusa Tenggara Timur</option>
+                        <option value="Papua">Papua</option>
+                        <option value="Papua Barat">Papua Barat</option>
+                        <option value="Riau">Riau</option>
+                        <option value="Sulawesi Barat">Sulawesi Barat</option>
+                        <option value="Sulawesi Selatan">Sulawesi Selatan</option>
+                        <option value="Sulawesi Tengah">Sulawesi Tengah</option>
+                        <option value="Sulawesi Tenggara">Sulawesi Tenggara</option>
+                        <option value="Sulawesi Utara">Sulawesi Utara</option>
+                        <option value="Sumatera Barat">Sumatera Barat</option>
+                        <option value="Sumatera Selatan">Sumatera Selatan</option>
+                        <option value="Sumatera Utara">Sumatera Utara</option>
+                        <option value="Yogyakarta">Yogyakarta</option>
                     </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="kota">Kota/Kabupaten</label>
+                    <input type="text" class="form-control" id="kota" placeholder="Kota/Kabupaten" name="kota">
                 </div>
             </div>
         </div>
@@ -145,12 +145,6 @@ $rows = mysqli_fetch_assoc($cs);
                     </select>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="form-group">    
-                    <label>Paket</label>
-                    <select id="paket" name="paket" class="form-control"></select>
-                </div>
-            </div>
         </div>
         <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-shopping-cart"></i> Order Sekarang</button>
         <a href="keranjang.php" class="btn btn-danger">Cancel</a>
@@ -159,49 +153,32 @@ $rows = mysqli_fetch_assoc($cs);
 <script type="text/javascript">
     $(document).ready(function(){
         $('#provinsi').change(function(){
-            var prov = $('#provinsi').val();
-            $.ajax({
-                type : 'GET',
-                url : 'http://localhost/inovasi/cek_kabupaten.php',
-                data :  'prov_id=' + prov,
-                success: function (data) {
-                    $("#kabupaten").html(data);
-                }
-            });
-        });
-        $("#kurir").change(function(){
-            var asal = $('#asal').val();
-            var kab = $('#kabupaten').val();
-            var kurir = $('#kurir').val();
-            var berat = $('#berat').val();
+            var provinsi = $(this).val();
+            // Simulasi pengambilan data kota/kabupaten berdasarkan provinsi
+            // Anda dapat menyesuaikan ini dengan kebutuhan Anda
             $.ajax({
                 type : 'POST',
-                url : 'http://localhost/inovasi/cek_ongkir.php',
-                data :  {'kab_id' : kab, 'kurir' : kurir, 'asal' : asal, 'berat' : berat},
-                success: function (data) {
-                    $("select[name=paket]").html(data);
-                    $("input[name=ekspedisi]").val(kurir);
+                url : 'get_kota.php', // Sesuaikan dengan file PHP yang digunakan untuk mengambil data kota/kabupaten berdasarkan provinsi
+                data :  'provinsi=' + provinsi,
+                success: function (response) {
+                    $("#kota").val(response); // Isi nilai kota/kabupaten berdasarkan provinsi yang dipilih
                 }
             });
         });
-        $("select[name=kota]").change(function(){
-            var prov = $("option:selected",this).attr("nama_provinsi");
-            var kota = $("option:selected",this).attr("nama_kota");
-            var tipe = $("option:selected",this).attr("tipe_kota");
-            $("input[name=prov]").val(prov);
-            $("input[name=kot]").val(kota);
-            $("input[name=tipe]").val(tipe);
+
+        $("#kurir").change(function(){
+            var kurir = $(this).val();
+            // Mengisi bagian ini sesuai kebutuhan untuk memilih paket pengiriman
+            // Anda bisa menyesuaikan dengan pilihan yang ada dan menggantinya dengan logika yang sesuai
         });
+
         $("select[name=paket]").change(function(){
-            var paket = $("option:selected",this).attr("paket");
-            var ongkir = $("option:selected",this).attr("ongkir");
-            var estimasi = $("option:selected",this).attr("etd");
-            $("input[name=paket]").val(paket);
-            $("input[name=ongkir]").val(ongkir);
-            $("input[name=estimasi]").val(estimasi);
+            // Mengisi bagian ini sesuai kebutuhan untuk mendapatkan informasi paket pengiriman
+            // Anda bisa menyesuaikan dengan pilihan yang ada dan menggantinya dengan logika yang sesuai
         });
     });
 </script>
+
 <?php 
 include 'footer.php';
 ?>

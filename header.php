@@ -9,7 +9,7 @@ if(isset($_SESSION['kd_cs'])){
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Batik Al Barokah</title>
+	<title>Batik YOHAFA</title>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
@@ -25,17 +25,17 @@ if(isset($_SESSION['kd_cs'])){
 		<div class="row top">
 			<center>
 				<div class="col-md-4" style="padding: 3px;">
-					<span> <i class="glyphicon glyphicon-earphone"></i>+6223-3334-4445</span>
+					<span> <i class="glyphicon glyphicon-earphone"></i>+62-895-1387-3079</span>
 				</div>
 
 
 				<div class="col-md-4"  style="padding: 3px;">
-					<span><i class="glyphicon glyphicon-envelope"></i> albarokah.batik@gmail.com</span>
+					<span><i class="glyphicon glyphiconicon-"></i> @BatikYOHAFA</span>
 				</div>
 
 
 				<div class="col-md-4"  style="padding: 3px;">
-					<span>Batik Al-Barokah Sumenep</span>
+					<span>Batik YOHAFA</span>
 				</div>
 			</center>
 		</div>
@@ -51,7 +51,7 @@ if(isset($_SESSION['kd_cs'])){
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#" style="color: #fff;"><b>Batik Al Barokah</b></a>
+				<a class="navbar-brand" href="#" style="color: #fff;"><b>Batik YOHAFA</b></a>
 			</div>
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

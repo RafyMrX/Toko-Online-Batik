@@ -3,7 +3,7 @@
 		<div class="container" style="padding-bottom: 50px;">
 			<div class="row">
 				<div class="col-md-4" style="color: #fff">
-					<h3 style="color: #e78b00;"><b>Batik Al Barokah</b></h3>
+					<h3 style="color: #e78b00;"><b>Batik YOHAFA</b></h3>
 					<p>Pesisir, Pakandangan Barat, Bluto, Kabupaten Sumenep, Jawa Timur 69466</p>
 					<p><i class="glyphicon glyphicon-earphone"></i> +6223-3334-4445</p>
 					<p><i class="glyphicon glyphicon-envelope"></i> albarokah.batik@gmail.com</p>

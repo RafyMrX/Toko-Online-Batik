@@ -23,7 +23,7 @@
 		</div>
 
 		<div class="copy" style="background-color:#d9b712; padding: 5px; color: #fff; text-align: center;">
-			<span>Copyright&copy; We Are Team Dinamika</span>
+			<span>Copyright&copy; Kelompok 10 Pemweb</span>
 		</div>
 	</footer>
 

@@ -17,7 +17,7 @@ $row = mysqli_fetch_assoc($result);
 
 $nama_produk = $row['nama'];
 
-$result1 = mysqli_query($conn, "SELECT k.id_keranjang as keranjang, k.kode_produk as kd, k.nama_produk as nama, k.qty as jml, p.image as gambar, k.harga as hrg, k.ukuran as ukuran FROM keranjang k join produk p on k.kode_produk=p.kode_produk WHERE kode_customer = '$kode_cs'");
+$result1 = mysqli_query($conn, "SELECT k.id_keranjang as keranjang, k.kode_produk as kd, k.nama_produk as nama, k.qty as jml, p.image as gambar, k.harga as harga, k.ukuran as ukuran FROM keranjang k join produk p on k.kode_produk=p.kode_produk WHERE kode_customer = '$kode_cs'");
 $row1 = mysqli_fetch_assoc($result1);
 
 $kd = $row['kode_produk'];

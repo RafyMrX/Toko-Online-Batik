@@ -13,7 +13,7 @@
 			<h3>Batik Yohafa</h3>
 			<p>Di era globalisasi ini, penting bagi kita untuk mempertahankan keberadaan batik sebagai warisan budaya yang berharga. Batik bukan hanya sekedar kain bewarna warni, tetapi juga mencerminkan identitas dan kekayaan kreatifitas budaya bangsa. </p>
 			<p>Dengan mempromosikan penggunaan batik di berbagai kesempatan, kita dapat menjaga keberlangsungan warisan nenek moyang kita juga memeperkuat rasa kebanggan akan budaya lokal ditengah arus globalisasi yang semakin menggelobal</p>
-			<p>Maka dari itu kami menghadirkan Batik YOHAFA. Batik YOHAFA merupakan batik modern yang trendi dan kekinian untuk kaum millenial dan gen z , karena bahannya yang lembut, nyerap keringat, dan memiliki corak yang indah, batik YOHAFA merupakan hasil kaloborasi dari 3 pemuda yang ingin mempopulerkan pakaian khas indonesia dan mempertahankannya di era globalisasi ini.</p>
+			<p>Maka dari itu kami menghadirkan Batik YOHAFA. Batik YOHAFA merupakan batik modern yang trendi dan kekinian untuk kaum millenial dan gen z , karena bahannya yang lembut, menyerap keringat, dan memiliki corak yang indah, batik YOHAFA merupakan hasil kaloborasi dari 3 pemuda yang ingin mempopulerkan pakaian khas indonesia dan mempertahankannya di era globalisasi ini.</p>
 		</div>
 	</div>
 </div>

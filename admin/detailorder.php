@@ -152,9 +152,9 @@ $t_cs = mysqli_fetch_assoc($cs);
 										<td><?= $list['kode_produk']; ?></td>
 										<td><?= $list['nama_produk']; ?></td>
 										<td><?= strtoupper($list['ukuran']); ?></td>
-										<td><?= number_format($list['harga'], 0, ".", ".");  ?></td>
-										<td><?= $list['qty'];  ?></td>
-										<td><?= number_format($list['harga']*$list['qty'], 0, ".", ".");  ?></td>
+										<td><?= number_format($list['harga'], 0, ".", "."); ?></td>
+										<td><?= number_format($list['harga'] * $list['qty'], 0, ".", "."); ?></td>
+
 									</tr>
 									<?php 
 									$sub = $list['harga'] * $list['qty'];

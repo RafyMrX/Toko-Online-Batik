@@ -107,7 +107,7 @@ $row = mysqli_fetch_assoc($result);
 			
 			$.ajax({
 				type : 'POST',
-				url : 'http://localhost/inovasi/cekharga.php',
+				url : 'http://localhost/TOKO-ONLINE-BATIK/cekharga.php',
 				data :  {'ukuran' : ukuran, 'kode' : kode},
 				success: function (data) {
 				var arr = data.split("|");

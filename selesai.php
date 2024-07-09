@@ -150,7 +150,7 @@ if (isset($_SESSION['inv'])) {
         if (distance < 1) {
             $.ajax({
                 type: 'POST',
-                url: 'http://localhost/inovasi/cek.php',
+                url: 'http://localhost/TOKO-ONLINE-BATIK/cek.php',
                 success: function (data) {
                     console.log(data);
                 }

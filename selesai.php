@@ -182,7 +182,7 @@ if (isset($_SESSION['inv'])) {
         document.getElementById('uploadForm').submit();
     });
 =======
-            document.getElementById("timer").innerHTML = "Batas Waktu Pembayaran Telah Berakhir";
+            document.getElementById("timer").innerHTML = "Batas Waktu Pembayaran Segere Berakhir";
         }
     }, 1000);
 >>>>>>> 67ab06328c5599754283ed8627eb4611d414a08c

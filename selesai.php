@@ -77,7 +77,7 @@ if (isset($_SESSION['inv'])) {
                                 </tr>
                             <?php else: ?>
                                 <tr>
-                                    <td colspan="5" style="text-align: right; font-weight: bold;">Gratis Ongkir Keseluruh Dunia</td>
+                                    <td colspan="5" style="text-align: right; font-weight: bold;">Gratis Ongkir Keseluruh Dunia cuy!</td>
                                 </tr>
                             <?php endif; ?>
                             <tr>

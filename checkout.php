@@ -90,7 +90,7 @@ if (!empty($kd)) {
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="kota">Kota/Kabupaten</label>
+                    <label for="kota">Kota atau kabupaten</label>
                     <input type="text" class="form-control" id="kota" placeholder="Kota/Kabupaten" name="kota">
                 </div>
             </div>

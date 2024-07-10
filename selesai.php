@@ -126,14 +126,14 @@ if (isset($_SESSION['inv'])) {
             <div class="row">
                 <div class="col-md-6">
                     <h4>Silahkan Upload Bukti Pembayaran disini :</h4>
-                    <form id="uploadForm" action="proses/bukti.php" method="POST" enctype="multipart/form-data">
+                    <form action="proses/bukti.php" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="cs" value="<?= $kode_cs; ?>">
                         <input type="hidden" name="inv" value="<?= $inv; ?>">
                         <div class="form-group">
                             <label>Pilih Gambar</label>    
-                            <input type="file" name="image" id="fileUpload" class="form-control">
+                            <input type="file" name="image" class="form-control">
                         </div>
-                        <button type="button" id="btnUpload" class="btn btn-warning">Upload</button>
+                        <button type="submit" class="btn btn-warning">Upload</button>
                     </form>
                 </div>
             </div>
@@ -143,7 +143,6 @@ if (isset($_SESSION['inv'])) {
         ?>
     </div>
 </div>
-
 <script>
     var countDownDate = new Date("<?php echo $data; ?>").getTime();
 
@@ -167,6 +166,7 @@ if (isset($_SESSION['inv'])) {
             });
 
             clearInterval(x);
+<<<<<<< HEAD
             document.querySelector(".timer").innerHTML = "Batas Waktu Pembayaran Telah Berakhir";
         }
     }, 1000);
@@ -181,6 +181,11 @@ if (isset($_SESSION['inv'])) {
         // Lanjutkan dengan mengirim formulir jika file sudah dipilih
         document.getElementById('uploadForm').submit();
     });
+=======
+            document.getElementById("timer").innerHTML = "Batas Waktu Pembayaran Telah Berakhir";
+        }
+    }, 1000);
+>>>>>>> 67ab06328c5599754283ed8627eb4611d414a08c
 </script>
 
 <?php 

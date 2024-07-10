@@ -1,0 +1,44 @@
++--------------------------------------+
+| Mulai                                |
++--------------------------------------+
+           |
+           v
++-----------------------------+
+| Inisialisasi ESP dan Motor  |
+| - Setup WiFi (opsional)     |
+| - Inisialisasi pin motor    |
+| - Inisialisasi pin sensor   |
++-----------------------------+
+           |
+           v
++-----------------------------+
+| Baca Nilai Sensor           |
+| - sensorValue = HIGH/LOW    |
++-----------------------------+
+           |
+           v
++-----------------------------+
+| Apakah Sensor HIGH?         |
+| - Jika ya, lanjut ke motor  |
+| - Jika tidak, ke motor off  |
++-----------------------------+
+           |
+          / \
+         /   \
+        /     \
+       v       v
++------------------+  +----------------+
+| Motor ON         |  | Motor OFF      |
+| - Motor berjalan |  | - Motor berhenti|
++------------------+  +----------------+
+           |
+           v
++-----------------------------+
+| Tunggu Sebentar (delay)     |
+| - Misalnya 100ms            |
++-----------------------------+
+           |
+           v
++--------------------------------------+
+| Kembali ke baca nilai sensor         |
++--------------------------------------+

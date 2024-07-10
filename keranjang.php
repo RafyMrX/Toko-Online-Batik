@@ -64,6 +64,9 @@ if(isset($_POST['submit1'])){
                     $jumlah = intval($row['jml']);
                     $subtotal = $harga * $jumlah;
                     $hasil += $subtotal;
+
+                    // Memeriksa apakah ukuran kosong, jika ya, atur ke "All Size"
+                    $ukuran = $row['ukuran'] ? strtoupper($row['ukuran']) : "All Size";
         ?>
         <tbody>
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
@@ -74,7 +77,7 @@ if(isset($_POST['submit1'])){
                 <td><?= $row['nama']; ?></td>
                 <td>Rp.<?= number_format($harga); ?></td>
                 <td><input type="number" name="qty" class="form-control" style="text-align: center;" value="<?= $jumlah; ?>"></td>
-                <td><?= strtoupper($row['ukuran']); ?></td>
+                <td><?= $ukuran; ?></td>
                 <td>Rp.<?= number_format($subtotal); ?></td>
                 <td>
                     <button type="submit" name="submit1" class="btn btn-warning">Update</button> 

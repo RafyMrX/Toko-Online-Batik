@@ -13,7 +13,7 @@ $kd = $_POST['cs'];
 if($eror === 4){
 	echo "
 	<script>
-	alert('TIDAK ADA GAMBAR YANG DIPILIH');
+	alert('TIDAK ADA GAMBAR YANG DI PILIH');
 	window.location = '../tm_produk.php';
 	</script>
 	";

@@ -4,7 +4,7 @@
 
 <!-- PRODUK TERBARU -->
 <div class="container">
-	<h2 style=" width: 100%; border-bottom: 4px solid #ff8680"><b>Produk Kita</b></h2>
+	<h2 style=" width: 100%; border-bottom: 4px solid #ff8680"><b>Produk Kami</b></h2>
 
 	<div class="row">
 		<?php 

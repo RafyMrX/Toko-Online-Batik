@@ -113,6 +113,10 @@ if (isset($_SESSION['inv'])) {
                 <div class="row">
                     <div class="col-md-6">
                         <h4>Silahkan Upload Bukti Pembayaran disini :</h4>
+                        <?php if (isset($_SESSION['error'])): ?>
+                            <div class="alert alert-danger"><?= $_SESSION['error']; ?></div>
+                            <?php unset($_SESSION['error']); ?>
+                        <?php endif; ?>
                         <form id="uploadForm" action="proses/bukti.php" method="POST" enctype="multipart/form-data">
                             <input type="hidden" name="cs" value="<?= $kode_cs; ?>">
                             <input type="hidden" name="inv" value="<?= $inv; ?>">
@@ -122,6 +126,7 @@ if (isset($_SESSION['inv'])) {
                             </div>
                             <button type="button" id="btnUpload" class="btn btn-warning">Upload</button>
                         </form>
+                        <div id="uploadError" class="alert alert-danger" style="display: none;"></div>
                     </div>
                 </div>
             </div>
@@ -160,7 +165,8 @@ if (isset($_SESSION['inv'])) {
     document.getElementById('btnUpload').addEventListener('click', function() {
         var fileUpload = document.getElementById('fileUpload');
         if (fileUpload.files.length === 0) {
-            alert('Pilih file terlebih dahulu');
+            document.getElementById('uploadError').style.display = 'block';
+            document.getElementById('uploadError').innerHTML = 'Pilih file terlebih dahulu';
             return;
         }
         // Lanjutkan dengan mengirim formulir jika file sudah dipilih

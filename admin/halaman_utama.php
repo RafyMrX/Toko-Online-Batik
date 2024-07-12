@@ -17,7 +17,7 @@ $jml3 = mysqli_num_rows($result3);
 <div class="container">
 	<div class="row">
 		<div class="col-md-4" >
-			<div style="background-color: #87CEFA; padding-bottom: 60px; padding-left: 20px;padding-right: 20px; padding-top: 10px;">
+			<div style="background-color: #dfdfdf; padding-bottom: 60px; padding-left: 20px;padding-right: 20px; padding-top: 10px;">
 				<h4>PESANAN BARU</h4>
 				<h4 style="font-size: 56pt;"><b><?= $jml1; ?></b></h4>
 			</div>
@@ -31,7 +31,7 @@ $jml3 = mysqli_num_rows($result3);
 		</div>
 
 		<div class="col-md-4" >
-			<div style="background-color: #00FF; padding-bottom: 60px; padding-left: 20px;padding-right: 20px; padding-top: 10px;">
+			<div style="background-color: #00FF7F; padding-bottom: 60px; padding-left: 20px;padding-right: 20px; padding-top: 10px;">
 				<h4>PESANAN DITERIMA</h4>
 				<h4 style="font-size: 56pt;"><b><?= $jml3; ?></b></h4>
 			</div>
@@ -58,11 +58,7 @@ $jml3 = mysqli_num_rows($result3);
 <br>
 <br>
 <br>
-<br>
-<br>
-<br>
 
-<br>
 <?php 
 include 'footer.php';
 ?>

@@ -1,7 +1,6 @@
 <?php 
 include 'header.php';
 
-
 $date = date('Y-m-d'); // Format tanggal yang benar
 $date1 = $date;
 $date2 = $date;
@@ -13,6 +12,21 @@ if(isset($_POST['submit'])){
 ?>
 
 <style type="text/css">
+    body, html {
+        height: 100%;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .container {
+        flex: 1;
+    }
+
+    body {
+        background-color: #aec6cf; /* Warna biru pastel */
+    }
+
     @media print {
         .print {
             display: none;
@@ -100,12 +114,6 @@ if(isset($_POST['submit'])){
         ?>
     </table>
 </div>
-
-<br>
-<br>
-<br>
-<br>
-<br>
 
 <?php 
 include 'footer.php';

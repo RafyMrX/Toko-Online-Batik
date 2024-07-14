@@ -52,6 +52,7 @@ if(isset($_POST['submit1'])){
                 <th scope="col">Action</th>
             </tr>
         </thead>
+        <tbody>
         <?php 
                 $result = mysqli_query($conn, "SELECT k.id_keranjang as keranjang, k.kode_produk as kd, k.nama_produk as nama, k.qty as jml, p.image as gambar, p.harga as hrg, k.ukuran as ukuran 
                                                FROM keranjang k 
@@ -64,41 +65,32 @@ if(isset($_POST['submit1'])){
                     $jumlah = intval($row['jml']);
                     $subtotal = $harga * $jumlah;
                     $hasil += $subtotal;
-
-                    // Memeriksa apakah ukuran kosong, jika ya, atur ke "All Size"
-                    $ukuran = $row['ukuran'] ? strtoupper($row['ukuran']) : "All Size";
-        ?>
-        <tbody>
-        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-            <input type="hidden" name="id" value="<?php echo $row['keranjang']; ?>">
-            <tr>
-                <th scope="row"><?= $no; ?></th>
-                <td><img src="image/produk/<?= $row['gambar']; ?>" width="100"></td>
-                <td><?= $row['nama']; ?></td>
-                <td>Rp.<?= number_format($harga); ?></td>
-                <td><input type="number" name="qty" class="form-control" style="text-align: center;" value="<?= $jumlah; ?>"></td>
-                <td><?= $ukuran; ?></td>
-                <td>Rp.<?= number_format($subtotal); ?></td>
-                <td>
+                ?>
+                       <tr>
+                           <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                               <input type="hidden" name="id" value="<?php echo $row['keranjang']; ?>">
+                               <td scope="row"><?= $no; ?></td>
+                               <td><img src="image/produk/<?= $row['gambar']; ?>" width="100"></td>
+                               <td><?= $row['nama']; ?></td>
+                               <td>Rp.<?= number_format($harga); ?></td>
+                               <td><input type="number" name="qty" class="form-control" style="text-align: center;" value="<?= $jumlah; ?>"></td>
+                               <td><?= $ukuran; ?></td>
+                               <td>Rp.<?= number_format($subtotal); ?></td>
+                               <td>
                     <button type="submit" name="submit1" class="btn btn-warning">Update</button> 
                     | 
                     <a href="keranjang.php?del=1&id=<?= $row['keranjang']; ?>" class="btn btn-danger" onclick="return confirm('Yakin ingin dihapus ?')">Delete</a>
-                </td>
-            </tr>
-        </form>
-        <?php 
-                    $no++;
-                }
-        ?>
-            <tr>
-                <td colspan="8" style="text-align: right; font-weight: bold;">Grand Total = Rp.<?= number_format($hasil); ?></td>
-            </tr>
-            <tr>
-                <td colspan="8" style="text-align: right; font-weight: bold;">
-                    <a href="index.php" class="btn btn-success">Lanjutkan Belanja</a> 
-                    <a href="checkout.php?kode_cs=<?= $kode_cs; ?>" class="btn btn-primary">Checkout</a>
-                </td>
-            </tr>
+               </td>
+                         </form>
+                       </tr>
+                   <?php 
+                       $no++;
+                    }
+                    ?>
+                    <tr>
+                        <td colspan="8" style="text-align: right; font-weight: bold;">Grand Total = Rp.<?= number_format($hasil); ?></td>
+                   </tr>
+               </tbody>  
         <?php 
             } else {
                 echo "

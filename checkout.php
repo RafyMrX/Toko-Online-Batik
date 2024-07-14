@@ -78,7 +78,7 @@ $rows = mysqli_fetch_assoc($cs);
         </div>
     </div>
     <br>
-    <form action="proses/order.php" method="POST">
+    <form id="checkoutForm" action="proses/order.php" method="POST">
         <input type="hidden" name="kode_cs" value="<?= $kd; ?>">
         <input type="hidden" id="berat" name="berat" value="<?= $jum; ?>">
         <div class="form-group">
@@ -89,7 +89,7 @@ $rows = mysqli_fetch_assoc($cs);
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="provinsi">Provinsi</label>
-                    <select id="provinsi" name="provinsi" class="form-control">
+                    <select id="provinsi" name="provinsi" class="form-control" required>
                         <option value="">Pilih Provinsi</option>
                         <option value="Aceh">Aceh</option>
                         <option value="Bali">Bali</option>
@@ -131,7 +131,7 @@ $rows = mysqli_fetch_assoc($cs);
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="kota">Kota/Kabupaten</label>
-                    <input type="text" class="form-control" id="kota" placeholder="Kota/Kabupaten" name="kota">
+                    <input type="text" class="form-control" id="kota" placeholder="Kota/Kabupaten" name="kota" required>
                 </div>
             </div>
         </div>
@@ -139,13 +139,13 @@ $rows = mysqli_fetch_assoc($cs);
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="exampleInputPassword1">Alamat</label>
-                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Alamat" name="almt">
+                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Alamat" name="almt" required>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="exampleInputPassword1">Kode Pos</label>
-                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Kode Pos" name="kopos">
+                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Kode Pos" name="kopos" required>
                 </div>
             </div>
         </div>
@@ -153,7 +153,7 @@ $rows = mysqli_fetch_assoc($cs);
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Kurir</label>
-                    <select id="kurir" name="kurir" class="form-control">
+                    <select id="kurir" name="kurir" class="form-control" required>
                         <option selected>-- Pilih Kurir --</option>
                         <option value="jne">JNE</option>
                         <option value="tiki">TIKI</option>
@@ -191,6 +191,26 @@ $rows = mysqli_fetch_assoc($cs);
         $("select[name=paket]").change(function() {
             // Mengisi bagian ini sesuai kebutuhan untuk mendapatkan informasi paket pengiriman
             // Anda bisa menyesuaikan dengan pilihan yang ada dan menggantinya dengan logika yang sesuai
+        });
+
+        // Validasi jQuery sebelum submit form
+        $('#checkoutForm').on('submit', function(event) {
+            var isValid = true;
+            $('#checkoutForm input, #checkoutForm select').each(function() {
+                if ($(this).prop('required')) {
+                    if ($(this).val() === '') {
+                        isValid = false;
+                        $(this).css('border-color', 'red');
+                    } else {
+                        $(this).css('border-color', '');
+                    }
+                }
+            });
+
+            if (!isValid) {
+                event.preventDefault();
+                alert('Mohon lengkapi semua bidang yang diperlukan.');
+            }
         });
     });
 </script>

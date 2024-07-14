@@ -89,7 +89,7 @@ if(isset($_POST['submit'])){
 			</tr>
 		<?php 	} ?>
 	</table>
-</div>
+		</div>
 
 <br>
 <br>

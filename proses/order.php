@@ -2,6 +2,7 @@
 session_start();
 
 include '../koneksi/koneksi.php';
+
 $kd_cs = $_POST['kode_cs'];
 $nama = $_POST['nama'];
 $prov = $_POST['prov'];
@@ -15,11 +16,9 @@ $paket = $_POST['paket'];
 $ongkir = $_POST['ongkir'];
 $etd = $_POST['estimasi'];
 
-$tanggal = date('M d, Y H:i:s', time() + (60*60));
-$t = date('yy-m-d');
-
-$time = date('H:i:s');
-
+// Mendapatkan tanggal dan waktu saat ini
+$tanggal = date('Y-m-d H:i:s'); // Format tanggal MySQL
+$t = date('Y-m-d'); // Format tanggal hanya tanggal
 
 $kode = mysqli_query($conn, "SELECT invoice from produksi order by invoice desc");
 $data = mysqli_fetch_assoc($kode);

@@ -23,11 +23,16 @@ $ukuran_list = explode(',', $row['ukuran']);
 // Temukan indeks ukuran yang sesuai
 $ukuran_index = array_search($ukuran, $ukuran_list);
 
-if ($jml > 0) {
-    // Product already exists in cart, update quantity
-    $set = $row1['qty'] + $qty;
-    $update = mysqli_query($conn, "UPDATE keranjang SET qty = '$set' WHERE kode_produk = '$kode_produk' AND kode_customer = '$kode_cs' AND ukuran = '$ukuran'");
-    
+if ($ukuran_index === false) {
+	echo "
+    <script>
+    alert('Ukuran tidak ditemukan!');
+    window.location = '../detail_produk.php?produk=" . $kode_produk . "';
+    </script>
+    ";
+	die;
+}
+
     if ($update) {
         echo "
         <script>

@@ -2,15 +2,15 @@
 include 'header.php';
 
 // pesanan baru 
-$result1 = mysqli_query($conn, "SELECT distinct invoice FROM produksi WHERE terima = 0 and tolak = 0");
+$result1 = mysqli_query($conn, "SELECT DISTINCT invoice FROM produksi WHERE terima = 0 AND tolak = 0");
 $jml1 = mysqli_num_rows($result1);
 
 // pesanan dibatalkan/ditolak
-$result2 = mysqli_query($conn, "SELECT distinct invoice FROM produksi WHERE  tolak = 1");
+$result2 = mysqli_query($conn, "SELECT DISTINCT invoice FROM produksi WHERE tolak = 1");
 $jml2 = mysqli_num_rows($result2);
 
 // pesanan diterima
-$result3 = mysqli_query($conn, "SELECT distinct invoice FROM produksi WHERE  terima = 1");
+$result3 = mysqli_query($conn, "SELECT DISTINCT invoice FROM produksi WHERE terima = 1");
 $jml3 = mysqli_num_rows($result3);
 ?>
 
@@ -28,11 +28,15 @@ $jml3 = mysqli_num_rows($result3);
         }
         .container {
             flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center content */
         }
         .row {
             display: flex;
             justify-content: space-around;
             margin: 20px 0;
+            width: 100%; /* Full width for proper spacing */
         }
         .col-md-4 {
             flex: 1;
@@ -53,10 +57,9 @@ $jml3 = mysqli_num_rows($result3);
         }
         .chart-container {
             position: relative;
-            height: 30vh;
-            width: 30vw;
-            margin: auto;
-            margin-bottom: 20px;
+            height: 40vh;
+            width: 80vw; /* Adjust width for better appearance */
+            margin: 20px auto; /* Center the chart */
         }
         @media print {
             .print {
@@ -91,58 +94,48 @@ $jml3 = mysqli_num_rows($result3);
             </div>
         </div>
 
-        <div class="row">
-            <div class="chart-container">
-                <canvas id="chartNewOrders"></canvas>
-            </div>
-            <div class="chart-container">
-                <canvas id="chartCancelledOrders"></canvas>
-            </div>
-            <div class="chart-container">
-                <canvas id="chartAcceptedOrders"></canvas>
-            </div>
+        <div class="chart-container">
+            <canvas id="orderChart"></canvas>
         </div>
     </div>
 
     <?php include 'footer.php'; ?>
 
     <script>
-        const ctxNewOrders = document.getElementById('chartNewOrders').getContext('2d');
-        const chartNewOrders = new Chart(ctxNewOrders, {
+        const ctx = document.getElementById('orderChart').getContext('2d');
+        const orderChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Pesanan Baru'],
-                datasets: [{
-                    label: '# Pesanan Baru',
-                    data: [<?= $jml1; ?>],
-                    backgroundColor: '#87CEFA'
-                }]
-            }
-        });
-
-        const ctxCancelledOrders = document.getElementById('chartCancelledOrders').getContext('2d');
-        const chartCancelledOrders = new Chart(ctxCancelledOrders, {
-            type: 'bar',
-            data: {
-                labels: ['Pesanan Dibatalkan'],
-                datasets: [{
-                    label: '# Pesanan Dibatalkan',
-                    data: [<?= $jml2; ?>],
-                    backgroundColor: '#FF0000'
-                }]
-            }
-        });
-
-        const ctxAcceptedOrders = document.getElementById('chartAcceptedOrders').getContext('2d');
-        const chartAcceptedOrders = new Chart(ctxAcceptedOrders, {
-            type: 'bar',
-            data: {
-                labels: ['Pesanan Diterima'],
-                datasets: [{
-                    label: '# Pesanan Diterima',
-                    data: [<?= $jml3; ?>],
-                    backgroundColor: '#00FF7F'
-                }]
+                labels: ['Pesanan'],
+                datasets: [
+                    {
+                        label: 'Pesanan Baru',
+                        data: [<?= $jml1; ?>],
+                        backgroundColor: '#87CEFA'
+                    },
+                    {
+                        label: 'Pesanan Dibatalkan',
+                        data: [<?= $jml2; ?>],
+                        backgroundColor: '#FF0000'
+                    },
+                    {
+                        label: 'Pesanan Diterima',
+                        data: [<?= $jml3; ?>],
+                        backgroundColor: '#00FF7F'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Jumlah Pesanan'
+                        }
+                    }
+                }
             }
         });
     </script>

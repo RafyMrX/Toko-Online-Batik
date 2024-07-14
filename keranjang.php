@@ -118,10 +118,19 @@ if(isset($_POST['submit1'])){
             </tr>";
         }
         ?>
-        </tbody>
-    </table>
+        </table>
+
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <?php if ($jml > 0) { ?>
+                <a href="index.php" class="btn btn-success">Lanjutkan Belanja</a>
+                <a href="checkout.php?kode_cs=<?= $kode_cs; ?>" class="btn btn-primary">Checkout</a>
+           <?php } ?>
+        </div>
+    </div>
 </div>
 
 <?php 
 include 'footer.php';
 ?>
+

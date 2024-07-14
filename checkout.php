@@ -59,8 +59,10 @@ $rows = mysqli_fetch_assoc($cs);
                 }
                 ?>
                 <tr>
-                    <td colspan="6" style="text-align: right; font-weight: bold;">Grand Total = Rp.<?= number_format($hasil); ?></td>
-                </tr>
+                    <td colspan="5" style="text-align: right; font-weight: bold;">Grand Total</td>
+                    <td>Rp.<?= number_format($grand_total); ?></td>
+                    </tr>
+                </tbody>
             </table>
         </div>
     </div>

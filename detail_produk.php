@@ -1,16 +1,11 @@
 <?php 
 include 'header.php';
-
 $kode = mysqli_real_escape_string($conn,$_GET['produk']);
 $result = mysqli_query($conn, "SELECT * FROM produk WHERE kode_produk = '$kode'");
 $jml = mysqli_num_rows($result);
 $row = mysqli_fetch_assoc($result);
 
-// Mengambil ukuran produk
-$arr = explode(",", $row['ukuran']);
-$jml = count($arr);
 ?>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <div class="container">
     <h2 style="width: 100%; border-bottom: 4px solid #ff8680"><b>Detail produk</b></h2>
@@ -23,11 +18,6 @@ $jml = count($arr);
         </div>
 
         <div class="col-md-8">
-            <!-- Notifikasi -->
-            <div id="notif" style="display: none;" class="alert alert-info">
-                Produk ini tersedia dalam ukuran All Size.
-            </div>
-
             <form action="proses/add.php" method="GET">
                 <input type="hidden" name="kd_cs" value="<?= $kode_cs; ?>">
                 <input type="hidden" name="berat" value="<?= $row['berat']; ?>">
@@ -49,6 +39,7 @@ $jml = count($arr);
                                 } else {
                                     $a = explode(",", $row['harga']);
                                     echo "Rp. ".number_format($a[0])." - ".number_format(end($a));  
+                               
                                 }
                                 ?>
                             </td>
@@ -59,6 +50,10 @@ $jml = count($arr);
                         </tr>
                         <tr>
                             <td><b>Ukuran</b></td>
+                            <?php 
+							$arr = explode(",", $row['ukuran']);
+							$jml = count($arr);
+							?>
                             <td>
                                 <select class="form-control" style="width: 155px;" name="ukuran" id="ukuran">
                                     <option selected value="allsize">All Size</option>

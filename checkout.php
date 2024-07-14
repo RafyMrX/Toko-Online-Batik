@@ -1,66 +1,66 @@
 <?php
 include 'header.php';
-$kd = mysqli_real_escape_string($conn,$_GET['kode_cs']);
+$kd = mysqli_real_escape_string($conn, $_GET['kode_cs']);
 $cs = mysqli_query($conn, "SELECT * FROM customer WHERE kode_customer = '$kd'");
 $rows = mysqli_fetch_assoc($cs);
 ?>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <div class="container" style="padding-bottom: 200px">
-    <h2 style=" width: 100%; border-bottom: 4px solid #ff8680"><b>Checkout</b></h2>
+    <h2 style="width: 100%; border-bottom: 4px solid #ff8680"><b>Checkout</b></h2>
     <div class="row">
         <div class="col-md-6">
             <h4>Daftar Pesanan</h4>
-            <table class="table table-stripped">
-                <thead>   
-                <tr>
-                    <th>No</th>
-                    <th>Nama</th>
-                    <th>Ukuran</th>
-                    <th>Harga</th>
-                    <th>Qty</th>
-                    <th>Sub Total</th>
-              </tr>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama</th>
+                        <th>Ukuran</th>
+                        <th>Harga</th>
+                        <th>Qty</th>
+                        <th>Sub Total</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <?php
-                $result = mysqli_query($conn, "SELECT k.*, p.harga as harga FROM keranjang k JOIN produk p ON k.kode_produk = p.kode_produk WHERE k.kode_customer = '$kd'");
-
-                $no = 1;
-                $hasil = 0;
-                while ($row = mysqli_fetch_assoc($result)) {
-                     // Ambil harga dan ukuran dari produk
-                      $harga_list = explode(',', $row['harga_produk']);
-                    $ukuran_list = explode(',', $row['ukuran_produk']);
-
-                     // Temukan indeks ukuran yang sesuai
-                     $ukuran_index = array_search($row['ukuran'], $ukuran_list);
-
-                     if ($ukuran_index !== false) {
-                         $harga = floatval($harga_list[$ukuran_index]);
-                     } else {
-                         $harga = 0; // Handle jika ukuran tidak ditemukan
-                     }
-
-                     $qty = intval($row['qty']);
-                     $subtotal = $harga * $qty;
-                     $grand_total += $subtotal;
-                 ?>
-                    <tr>
-                        <td><?= $no; ?></td>
-                        <td><?= $row['nama_produk']; ?></td>
-                        <td><?= strtoupper($row['ukuran']); ?></td>
-                        <td>Rp.<?= number_format($harga); ?></td>
-                        <td><?= $qty; ?></td>
-                        <td>Rp.<?= number_format($subtotal); ?></td>
-                    </tr>
                     <?php
-                    $no++;
-                }
-                ?>
-                <tr>
-                    <td colspan="5" style="text-align: right; font-weight: bold;">Grand Total</td>
-                    <td>Rp.<?= number_format($grand_total); ?></td>
+                    $result = mysqli_query($conn, "SELECT k.*, p.nama AS nama_produk, p.harga AS harga_produk, p.ukuran AS ukuran_produk FROM keranjang k JOIN produk p ON k.kode_produk = p.kode_produk WHERE k.kode_customer = '$kd'");
+
+                    $no = 1;
+                    $grand_total = 0;
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        // Ambil harga dan ukuran dari produk
+                        $harga_list = explode(',', $row['harga_produk']);
+                        $ukuran_list = explode(',', $row['ukuran_produk']);
+
+                        // Temukan indeks ukuran yang sesuai
+                        $ukuran_index = array_search($row['ukuran'], $ukuran_list);
+
+                        if ($ukuran_index !== false) {
+                            $harga = floatval($harga_list[$ukuran_index]);
+                        } else {
+                            $harga = 0; // Handle jika ukuran tidak ditemukan
+                        }
+
+                        $qty = intval($row['qty']);
+                        $subtotal = $harga * $qty;
+                        $grand_total += $subtotal;
+                    ?>
+                        <tr>
+                            <td><?= $no; ?></td>
+                            <td><?= $row['nama_produk']; ?></td>
+                            <td><?= strtoupper($row['ukuran']); ?></td>
+                            <td>Rp.<?= number_format($harga); ?></td>
+                            <td><?= $qty; ?></td>
+                            <td>Rp.<?= number_format($subtotal); ?></td>
+                        </tr>
+                    <?php
+                        $no++;
+                    }
+                    ?>
+                    <tr>
+                        <td colspan="5" style="text-align: right; font-weight: bold;">Grand Total</td>
+                        <td>Rp.<?= number_format($grand_total); ?></td>
                     </tr>
                 </tbody>
             </table>
@@ -74,11 +74,11 @@ $rows = mysqli_fetch_assoc($cs);
     <br>
     <div class="row">
         <div class="col-md-6 bg-warning">
-            <h5>Isi Form dibawah ini </h5>
+            <h5>Isi Form di Bawah Ini</h5>
         </div>
     </div>
     <br>
-   <form action="proses/order.php" method="POST">
+    <form action="proses/order.php" method="POST">
         <input type="hidden" name="kode_cs" value="<?= $kd; ?>">
         <input type="hidden" id="berat" name="berat" value="<?= $jum; ?>">
         <div class="form-group">
@@ -151,7 +151,7 @@ $rows = mysqli_fetch_assoc($cs);
         </div>
         <div class="row" style="border-bottom: 2px solid #cacaca; margin-bottom: 18px;">
             <div class="col-md-6">
-                <div class="form-group">    
+                <div class="form-group">
                     <label>Kurir</label>
                     <select id="kurir" name="kurir" class="form-control">
                         <option selected>-- Pilih Kurir --</option>
@@ -162,39 +162,39 @@ $rows = mysqli_fetch_assoc($cs);
                 </div>
             </div>
         </div>
-        <button type="submit" id="order-btn" class="btn btn-success"><i class="glyphicon glyphicon-shopping-cart"></i> Order Sekarang</button>
+        <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-shopping-cart"></i> Order Sekarang</button>
         <a href="keranjang.php" class="btn btn-danger">Cancel</a>
     </form>
 </div>
 <script type="text/javascript">
-    $(document).ready(function(){
-        $('#provinsi').change(function(){
+    $(document).ready(function() {
+        $('#provinsi').change(function() {
             var provinsi = $(this).val();
             // Simulasi pengambilan data kota/kabupaten berdasarkan provinsi
             // Anda dapat menyesuaikan ini dengan kebutuhan Anda
             $.ajax({
-                type : 'POST',
-                url : 'get_kota.php', // Sesuaikan dengan file PHP yang digunakan untuk mengambil data kota/kabupaten berdasarkan provinsi
-                data :  'provinsi=' + provinsi,
-                success: function (response) {
+                type: 'POST',
+                url: 'get_kota.php', // Sesuaikan dengan file PHP yang digunakan untuk mengambil data kota/kabupaten berdasarkan provinsi
+                data: 'provinsi=' + provinsi,
+                success: function(response) {
                     $("#kota").val(response); // Isi nilai kota/kabupaten berdasarkan provinsi yang dipilih
                 }
             });
         });
 
-        $("#kurir").change(function(){
+        $("#kurir").change(function() {
             var kurir = $(this).val();
             // Mengisi bagian ini sesuai kebutuhan untuk memilih paket pengiriman
             // Anda bisa menyesuaikan dengan pilihan yang ada dan menggantinya dengan logika yang sesuai
         });
 
-       $("select[name=paket]").change(function() {
+        $("select[name=paket]").change(function() {
             // Mengisi bagian ini sesuai kebutuhan untuk mendapatkan informasi paket pengiriman
             // Anda bisa menyesuaikan dengan pilihan yang ada dan menggantinya dengan logika yang sesuai
         });
     });
 </script>
 
-<?php 
+<?php
 include 'footer.php';
 ?>

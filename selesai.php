@@ -13,26 +13,33 @@ if (isset($_SESSION['inv'])) {
     $data = $row['tanggal'];
     $ongkir = $row['ongkir'];
 }
-
 ?>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <div class="container" style="padding-bottom: 300px;">
     <div class="row">
-        <?php if (!isset($_SESSION['cek']) && !isset($_SESSION['inv'])): ?>
-            <div class="col-md-6">
-                <?php if (isset($_SESSION['msg'])): ?>
+        <?php
+        if (!isset($_SESSION['cek']) && !isset($_SESSION['inv'])) {
+            if (isset($_SESSION['msg'])) {
+        ?>
+                <div class="col-md-6">
                     <h3 class="alert-success">Pembayaran Berhasil Resi Akan Dikirimkan Ke Alamat Email Anda</h3>
                     <div id="timer" style="font-size: 40px;" class="alert-warning text-center"></div>
-                <?php else: ?>
+                </div>
+            <?php
+                unset($_SESSION['msg']);
+            } else {
+            ?>
+                <div class="col-md-6">
                     <h3 class="alert-warning">Tidak Ada Pesanan</h3>
                     <div id="timer" style="font-size: 40px;" class="alert-warning text-center"></div>
-                <?php endif; ?>
-            </div>
-        <?php endif; ?>
+                </div>
+            <?php
+            }
+        }
 
-        <?php if (isset($_SESSION['cek']) && isset($_SESSION['inv'])): ?>
+        if (isset($_SESSION['cek']) && isset($_SESSION['inv'])) {
+            ?>
             <div class="container" style="padding-bottom: 300px;">
                 <h2 class="bg-success" style="padding: 10px;">Checkout Berhasil</h2>
                 <div class="row">
@@ -70,8 +77,9 @@ if (isset($_SESSION['inv'])) {
                             <?php 
                                 $no++;
                             }
+                           // Ensure the ongkir value is properly formatted as a number
+                            $ongkir = floatval(str_replace(',', '', $ongkir));
                             ?>
-                            <?php if ($ongkir > 0): ?>
                                 <tr>
                                     <td colspan="5" style="text-align: right; font-weight: bold;">Ongkir = Rp. <?= number_format($ongkir); ?></td>
                                 </tr>
@@ -80,6 +88,9 @@ if (isset($_SESSION['inv'])) {
                                     <td colspan="5" style="text-align: right; font-weight: bold;">Gratis Ongkir Keseluruh Dunia cuy!</td>
                                 </tr>
                             <?php endif; ?>
+                             <tr>
+                                <td colspan="5" style="text-align: right; font-weight: bold;">Ongkir = Rp. <?= number_format($ongkir); ?></td>
+                            </tr>
                             <tr>
                                 <td colspan="5" style="text-align: right; font-weight: bold;">Grand Total = Rp. <?= number_format($hasil + $ongkir); ?></td>
                             </tr>

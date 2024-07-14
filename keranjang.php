@@ -40,32 +40,32 @@ if(isset($_POST['submit1'])){
 
             if($jml > 0){
         ?>  
-        <thead>
-            <tr>
-                <th scope="col">No</th>
-                <th scope="col">Image</th>
-                <th scope="col">Nama</th>
-                <th scope="col">Harga</th>
-                <th scope="col">Qty</th>
-                <th scope="col">Ukuran</th>
-                <th scope="col">SubTotal</th>
-                <th scope="col">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-        <?php 
-                $result = mysqli_query($conn, "SELECT k.id_keranjang as keranjang, k.kode_produk as kd, k.nama_produk as nama, k.qty as jml, p.image as gambar, p.harga as hrg, k.ukuran as ukuran 
+               <thead>
+                   <tr>
+                      <th scope="col">No</th>
+                      <th scope="col">Image</th>
+                      <th scope="col">Nama</th>
+                      <th scope="col">Harga</th>
+                      <th scope="col">Qty</th>
+                      <th scope="col">Ukuran</th>
+                      <th scope="col">SubTotal</th>
+                      <th scope="col">Action</th>
+                   </tr>
+               </thead>
+               <tbody>
+                   <?php 
+                   $result = mysqli_query($conn, "SELECT k.id_keranjang as keranjang, k.kode_produk as kd, k.nama_produk as nama, k.qty as jml, p.image as gambar, p.harga as hrg, k.ukuran as ukuran 
                                                FROM keranjang k 
                                                JOIN produk p ON k.kode_produk = p.kode_produk 
                                                WHERE k.kode_customer = '$kode_cs'");
-                $no = 1;
-                $hasil = 0;
-                while($row = mysqli_fetch_assoc($result)){
-                    $harga = floatval($row['hrg']);
-                    $jumlah = intval($row['jml']);
-                    $subtotal = $harga * $jumlah;
-                    $hasil += $subtotal;
-                ?>
+                   $no = 1;
+                   $hasil = 0;
+                   while($row = mysqli_fetch_assoc($result)){
+                       $harga = floatval($row['hrg']);
+                       $jumlah = intval($row['jml']);
+                       $subtotal = $harga * $jumlah;
+                       $hasil += $subtotal;
+                    ?>
                        <tr>
                            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                                <input type="hidden" name="id" value="<?php echo $row['keranjang']; ?>">
@@ -77,10 +77,10 @@ if(isset($_POST['submit1'])){
                                <td><?= $ukuran; ?></td>
                                <td>Rp.<?= number_format($subtotal); ?></td>
                                <td>
-                    <button type="submit" name="submit1" class="btn btn-warning">Update</button> 
-                    | 
-                    <a href="keranjang.php?del=1&id=<?= $row['keranjang']; ?>" class="btn btn-danger" onclick="return confirm('Yakin ingin dihapus ?')">Delete</a>
-               </td>
+                                   <button type="submit" name="submit1" class="btn btn-warning">Update</button> 
+                                   | 
+                                   <a href="keranjang.php?del=1&id=<?= $row['keranjang']; ?>" class="btn btn-danger" onclick="return confirm('Yakin ingin dihapus ?')">Delete</a>
+                               </td>
                          </form>
                        </tr>
                    <?php 
@@ -118,7 +118,7 @@ if(isset($_POST['submit1'])){
             </tr>";
         }
         ?>
-        </table>
+    </table>
 
     <div class="row">
         <div class="col-md-12 text-right">
@@ -133,4 +133,3 @@ if(isset($_POST['submit1'])){
 <?php 
 include 'footer.php';
 ?>
-

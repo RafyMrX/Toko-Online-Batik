@@ -162,7 +162,7 @@ $rows = mysqli_fetch_assoc($cs);
                 </div>
             </div>
         </div>
-        <button type="button" id="order-btn" class="btn btn-success"><i class="glyphicon glyphicon-shopping-cart"></i> Order Sekarang</button>
+        <button type="submit" id="order-btn" class="btn btn-success"><i class="glyphicon glyphicon-shopping-cart"></i> Order Sekarang</button>
         <a href="keranjang.php" class="btn btn-danger">Cancel</a>
     </form>
 </div>
@@ -188,16 +188,9 @@ $rows = mysqli_fetch_assoc($cs);
             // Anda bisa menyesuaikan dengan pilihan yang ada dan menggantinya dengan logika yang sesuai
         });
 
-        $("#order-btn").click(function(){
-            // Memeriksa apakah alamat lengkap sudah terisi sebelum melanjutkan
-            var alamat = $("input[name=almt]").val();
-            var kota = $("#kota").val();
-            var provinsi = $("#provinsi").val();
-            if(alamat === "" || kota === "" || provinsi === "") {
-                $("#alamat-alert").show();
-            } else {
-                $("#checkout-form").submit();
-            }
+       $("select[name=paket]").change(function() {
+            // Mengisi bagian ini sesuai kebutuhan untuk mendapatkan informasi paket pengiriman
+            // Anda bisa menyesuaikan dengan pilihan yang ada dan menggantinya dengan logika yang sesuai
         });
     });
 </script>

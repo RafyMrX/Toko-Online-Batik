@@ -20,7 +20,8 @@ $etd = $_POST['estimasi'];
 $tanggal = date('Y-m-d H:i:s'); // Format tanggal MySQL
 $t = date('Y-m-d'); // Format tanggal hanya tanggal
 
-$kode = mysqli_query($conn, "SELECT invoice from produksi order by invoice desc");
+// Membuat format invoice baru
+$kode = mysqli_query($conn, "SELECT invoice FROM produksi ORDER BY invoice DESC");
 $data = mysqli_fetch_assoc($kode);
 $num = substr($data['invoice'], 3, 4);
 $add = (int) $num + 1;
@@ -28,14 +29,13 @@ if(strlen($add) == 1){
 	$format = "INV000".$add;
 }else if(strlen($add) == 2){
 	$format = "INV00".$add;
-}
-else if(strlen($add) == 3){
+}else if(strlen($add) == 3){
 	$format = "INV0".$add;
 }else{
 	$format = "INV".$add;
 }
 
-
+// Memproses keranjang belanja
 $keranjang = mysqli_query($conn, "SELECT * FROM keranjang WHERE kode_customer = '$kd_cs'");
 $a = 0;
 while($row = mysqli_fetch_assoc($keranjang)){
@@ -49,22 +49,24 @@ while($row = mysqli_fetch_assoc($keranjang)){
 
 	$sub = $row['harga'] * $row['qty'];
 	$a += $sub;
-	
 
-	$order = mysqli_query($conn, "INSERT INTO produksi VALUES('','$format','$kd_cs','$kd_produk','$nama_produk','$qty','$harga','$ukuran','$status','$tanggal','$prov','$kota','$alamat','$kopos','$ekspedisi','$paket','$ongkir','$etd','0','0','0','0','$time','','$t')");
-
+	// Memasukkan data pesanan ke tabel produksi
+$order = mysqli_query($conn, "INSERT INTO produksi VALUES('', '$format', '$kd_cs', '$kd_produk', '$nama_produk', '$qty', '$harga', '$ukuran', '$status', '$tanggal', '$prov', '$kota', '$alamat', '$kopos', '$ekspedisi', '$paket', '$ongkir', '$etd', '0', '0', '0', '0', '$t', '$time', '$t')");
 }
-$ses_inv = $_SESSION['inv'] = $format;
-$ses_cek = $_SESSION['cek'] = true;
 
+// Menyimpan invoice ke dalam session untuk digunakan di halaman selesai.php
+$_SESSION['inv'] = $format;
+$_SESSION['cek'] = true;
+
+// Menambahkan nilai acak untuk total pembayaran agar unik
 $nominal = $a;
 $sub = substr($nominal,-3);
-			$sub2 = substr($nominal,-2);
-			$sub3 = substr($nominal,-1);
+$sub2 = substr($nominal,-2);
+$sub3 = substr($nominal,-1);
  
-			$total =  rand(0, 999);
-			$total2 =  rand(0, 99);
-			$total3 =  rand(0, 9);
+$total =  rand(0, 999);
+$total2 =  rand(0, 99);
+$total3 =  rand(0, 9);
 
 				if($sub==0){
 					$hasil =  $nominal + $total; 

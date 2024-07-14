@@ -78,10 +78,7 @@ $rows = mysqli_fetch_assoc($cs);
         </div>
     </div>
     <br>
-    <div class="alert alert-danger" id="alamat-alert" style="display: none;">
-        <strong>Perhatian!</strong> Silakan isi alamat lengkap Anda sebelum melanjutkan pembayaran.
-    </div>
-    <form id="checkout-form" action="proses/order.php" method="POST">
+   <form action="proses/order.php" method="POST">
         <input type="hidden" name="kode_cs" value="<?= $kd; ?>">
         <input type="hidden" id="berat" name="berat" value="<?= $jum; ?>">
         <div class="form-group">

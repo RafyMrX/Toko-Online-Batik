@@ -33,44 +33,34 @@ if ($ukuran_index === false) {
 	die;
 }
 
-    if ($update) {
-        echo "
+    // Ambil harga berdasarkan indeks ukuran yang ditemukan
+$harga = intval($harga_list[$ukuran_index]);
+
+$cek = mysqli_query($conn, "SELECT * FROM keranjang WHERE kode_produk = '$kode_produk' AND kode_customer = '$kode_cs' AND ukuran = '$ukuran'");
+$jml = mysqli_num_rows($cek);
+$row1 = mysqli_fetch_assoc($cek);
+
+if ($ukuran == $row1['ukuran'] || $jml > 0) {
+	$set = $row1['qty'] + $qty;
+	$update = mysqli_query($conn, "UPDATE keranjang SET qty = '$set' WHERE kode_produk = '$kode_produk' AND kode_customer = '$kode_cs' AND ukuran = '$ukuran'");
+	if ($update) {
+		echo "
         <script>
         alert('BERHASIL DITAMBAHKAN KE KERANJANG');
-        window.location = '../detail_produk.php?produk=".$kode_produk."';
+        window.location = '../detail_produk.php?produk=" . $kode_produk . "';
         </script>
         ";
-        exit; // Exit script after redirection
-    } else {
-        echo "
-        <script>
-        alert('GAGAL UPDATE KERANJANG');
-        window.location = '../detail_produk.php?produk=".$kode_produk."';
-        </script>
-        ";
-        exit; // Exit script after redirection
-    }
+		die;
+	}
 } else {
-    // Product not yet in cart, insert new entry
-    $insert = mysqli_query($conn, "INSERT INTO keranjang (kode_customer, kode_produk, nama_produk, qty, harga, berat, ukuran) 
-                                   VALUES ('$kode_cs', '$kode_produk', '$nama_produk', '$qty', '$harga', '$berat', '$ukuran')");
-    
-    if ($insert) {
-        echo "
+	$insert = mysqli_query($conn, "INSERT INTO keranjang VALUES('', '$kode_cs', '$kode_produk', '$nama_produk', '$qty', '$harga', '$berat', '$ukuran')");
+	if ($insert) {
+		echo "
         <script>
         alert('BERHASIL DITAMBAHKAN KE KERANJANG');
-        window.location = '../detail_produk.php?produk=".$kode_produk."';
+        window.location = '../detail_produk.php?produk=" . $kode_produk . "';
         </script>
         ";
-        exit; // Exit script after redirection
-    } else {
-        echo "
-        <script>
-        alert('GAGAL MENAMBAHKAN KE KERANJANG');
-        window.location = '../detail_produk.php?produk=".$kode_produk."';
-        </script>
-        ";
-        exit; // Exit script after redirection
-    }
+		die;
+	}
 }
-?>

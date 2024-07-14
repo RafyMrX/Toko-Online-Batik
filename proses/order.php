@@ -68,28 +68,22 @@ $total =  rand(0, 999);
 $total2 =  rand(0, 99);
 $total3 =  rand(0, 9);
 
-				if($sub==0){
-					$hasil =  $nominal + $total; 
-
-				}if($sub2 == 0){
-					$hasil = $nominal + $total2; 
-
-				}if($sub3 == 0){
-					$hasil = $nominal + $total3; 
-
-				}
-
-
-
-$update = mysqli_query($conn, "UPDATE produksi set grand_total = '$hasil' where kode_customer = '$kd_cs' and timess = '$time'");
-
-
-$del_keranjang = mysqli_query($conn,"DELETE FROM keranjang WHERE kode_customer = '$kd_cs'");
-
-if($del_keranjang){
-	header("location:../selesai.php");
+if($sub==0){
+	$hasil =  $nominal + $total; 
+}if($sub2 == 0){
+	$hasil = $nominal + $total2; 
+}if($sub3 == 0){
+	$hasil = $nominal + $total3; 
 }
 
+// Memperbarui grand total pada tabel produksi
+$update = mysqli_query($conn, "UPDATE produksi SET grand_total = '$hasil' WHERE kode_customer = '$kd_cs' AND timess = '$time'");
 
+// Menghapus data keranjang belanja setelah proses selesai
+$del_keranjang = mysqli_query($conn, "DELETE FROM keranjang WHERE kode_customer = '$kd_cs'");
 
-?>
+// Redirect ke halaman selesai.php setelah selesai
+if ($del_keranjang) {
+	header("location:../selesai.php");
+}
+			

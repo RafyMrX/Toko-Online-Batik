@@ -80,14 +80,6 @@ if (isset($_SESSION['inv'])) {
                            // Ensure the ongkir value is properly formatted as a number
                             $ongkir = floatval(str_replace(',', '', $ongkir));
                             ?>
-                                <tr>
-                                    <td colspan="5" style="text-align: right; font-weight: bold;">Ongkir = Rp. <?= number_format($ongkir); ?></td>
-                                </tr>
-                            <?php else: ?>
-                                <tr>
-                                    <td colspan="5" style="text-align: right; font-weight: bold;">Gratis Ongkir Keseluruh Dunia cuy!</td>
-                                </tr>
-                            <?php endif; ?>
                              <tr>
                                 <td colspan="5" style="text-align: right; font-weight: bold;">Ongkir = Rp. <?= number_format($ongkir); ?></td>
                             </tr>
@@ -124,27 +116,23 @@ if (isset($_SESSION['inv'])) {
                 <div class="row">
                     <div class="col-md-6">
                         <h4>Silahkan Upload Bukti Pembayaran disini :</h4>
-                        <?php if (isset($_SESSION['error'])): ?>
-                            <div class="alert alert-danger"><?= $_SESSION['error']; ?></div>
-                            <?php unset($_SESSION['error']); ?>
-                        <?php endif; ?>
-                        <form id="uploadForm" action="proses/bukti.php" method="POST" enctype="multipart/form-data">
+                        <form action="proses/bukti.php" method="POST" enctype="multipart/form-data">
                             <input type="hidden" name="cs" value="<?= $kode_cs; ?>">
                             <input type="hidden" name="inv" value="<?= $inv; ?>">
                             <div class="form-group">
-                                <label>Pilih Gambar</label>    
-                                <input type="file" name="image" id="fileUpload" class="form-control">
+                                <label>Pilih Gambar</label>
+                                <input type="file" name="image" class="form-control">
                             </div>
-                            <button type="button" id="btnUpload" class="btn btn-warning">Upload</button>
-                        </form>
-                        <div id="uploadError" class="alert alert-danger" style="display: none;"></div>
-                    </div>
+                            <button type="submit" id="btnUpload" class="btn btn-warning">Upload</button>
+                         </form>
+                        </div>
                 </div>
             </div>
-        <?php endif; ?>
+        <?php
+        }
+        ?>
     </div>
 </div>
-
 <script>
     var countDownDate = new Date("<?php echo $data; ?>").getTime();
 
@@ -161,30 +149,18 @@ if (isset($_SESSION['inv'])) {
         if (distance < 1) {
             $.ajax({
                 type: 'POST',
-                url: 'http://localhost/TOKO-ONLINE-BATIK/cek.php',
+                 url: 'http://localhost/inovasi/cek.php',
                 success: function (data) {
                     console.log(data);
                 }
             });
 
-            clearInterval(x);
+             clearInterval(x);
             document.getElementById("timer").innerHTML = "Batas Waktu Pembayaran Telah Berakhir";
         }
     }, 1000);
-
-    // Validasi sebelum upload
-    document.getElementById('btnUpload').addEventListener('click', function() {
-        var fileUpload = document.getElementById('fileUpload');
-        if (fileUpload.files.length === 0) {
-            document.getElementById('uploadError').style.display = 'block';
-            document.getElementById('uploadError').innerHTML = 'Pilih file terlebih dahulu';
-            return;
-        }
-        // Lanjutkan dengan mengirim formulir jika file sudah dipilih
-        document.getElementById('uploadForm').submit();
-    });
 </script>
 
-<?php 
+<?php
 include 'footer.php';
 ?>

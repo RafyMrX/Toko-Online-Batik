@@ -5,9 +5,11 @@ $hal = $_GET['hal'];
 $kode_cs = $_GET['kd_cs'];
 $kode_produk = $_GET['produk'];
 $ukuran = $_GET['ukuran'];
-$harga = $_GET['harga'];
 $berat = $_GET['berat'];
-$qty = isset($_GET['jml']) ? $_GET['jml'] : 1; // Default qty to 1 if not set
+
+if (isset($_GET['jml'])) {
+	$qty = $_GET['jml'];
+}
 
 // Fetch product details
 $result = mysqli_query($conn, "SELECT * FROM produk WHERE kode_produk = '$kode_produk'");

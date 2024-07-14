@@ -11,16 +11,17 @@ if (isset($_GET['jml'])) {
 	$qty = $_GET['jml'];
 }
 
-// Fetch product details
 $result = mysqli_query($conn, "SELECT * FROM produk WHERE kode_produk = '$kode_produk'");
 $row = mysqli_fetch_assoc($result);
 
 $nama_produk = $row['nama'];
 
-// Check if the product already exists in the cart
-$cek = mysqli_query($conn, "SELECT * FROM keranjang WHERE kode_produk = '$kode_produk' AND kode_customer = '$kode_cs' AND ukuran = '$ukuran'");
-$jml = mysqli_num_rows($cek);
-$row1 = mysqli_fetch_assoc($cek);
+// Ambil daftar harga dan ukuran dari produk
+$harga_list = explode(',', $row['harga']);
+$ukuran_list = explode(',', $row['ukuran']);
+
+// Temukan indeks ukuran yang sesuai
+$ukuran_index = array_search($ukuran, $ukuran_list);
 
 if ($jml > 0) {
     // Product already exists in cart, update quantity

@@ -12,6 +12,7 @@ $rows = mysqli_fetch_assoc($cs);
         <div class="col-md-6">
             <h4>Daftar Pesanan</h4>
             <table class="table table-stripped">
+                <thead>   
                 <tr>
                     <th>No</th>
                     <th>Nama</th>
@@ -19,7 +20,9 @@ $rows = mysqli_fetch_assoc($cs);
                     <th>Harga</th>
                     <th>Qty</th>
                     <th>Sub Total</th>
-                </tr>
+              </tr>
+                </thead>
+                <tbody>
                 <?php
                 $result = mysqli_query($conn, "SELECT k.*, p.harga as harga FROM keranjang k JOIN produk p ON k.kode_produk = p.kode_produk WHERE k.kode_customer = '$kd'");
 

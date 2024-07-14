@@ -28,13 +28,24 @@ $rows = mysqli_fetch_assoc($cs);
 
                 $no = 1;
                 $hasil = 0;
-                $jum = 0;
                 while ($row = mysqli_fetch_assoc($result)) {
-                    $harga = floatval($row['harga']);
-                    $qty = intval($row['qty']);
-                    $subtotal = $harga * $qty;
-                    $hasil += $subtotal;
-                    ?>
+                     // Ambil harga dan ukuran dari produk
+                      $harga_list = explode(',', $row['harga_produk']);
+                    $ukuran_list = explode(',', $row['ukuran_produk']);
+
+                     // Temukan indeks ukuran yang sesuai
+                     $ukuran_index = array_search($row['ukuran'], $ukuran_list);
+
+                     if ($ukuran_index !== false) {
+                         $harga = floatval($harga_list[$ukuran_index]);
+                     } else {
+                         $harga = 0; // Handle jika ukuran tidak ditemukan
+                     }
+
+                     $qty = intval($row['qty']);
+                     $subtotal = $harga * $qty;
+                     $grand_total += $subtotal;
+                 ?>
                     <tr>
                         <td><?= $no; ?></td>
                         <td><?= $row['nama_produk']; ?></td>

@@ -116,12 +116,12 @@ if (isset($_SESSION['inv'])) {
                 <div class="row">
                     <div class="col-md-6">
                         <h4>Silahkan Upload Bukti Pembayaran disini :</h4>
-                        <form action="proses/bukti.php" method="POST" enctype="multipart/form-data">
+                        <form id="uploadForm" action="proses/bukti.php" method="POST" enctype="multipart/form-data">
                             <input type="hidden" name="cs" value="<?= $kode_cs; ?>">
                             <input type="hidden" name="inv" value="<?= $inv; ?>">
                             <div class="form-group">
                                 <label>Pilih Gambar</label>
-                                <input type="file" name="image" class="form-control">
+                                <input type="file" name="image" class="form-control" required>
                             </div>
                             <button type="submit" class="btn btn-warning">Upload</button>
                         </form>
@@ -159,6 +159,15 @@ if (isset($_SESSION['inv'])) {
             document.getElementById("timer").innerHTML = "Batas Waktu Pembayaran Telah Berakhir";
         }
     }, 1000);
+
+    // jQuery validation for upload form
+    $('#uploadForm').on('submit', function(event) {
+        var imageInput = $('input[name="image"]');
+        if (imageInput.get(0).files.length === 0) {
+            event.preventDefault();
+            alert('Mohon upload bukti pembayaran sebelum melanjutkan.');
+        }
+    });
 </script>
 
 <?php

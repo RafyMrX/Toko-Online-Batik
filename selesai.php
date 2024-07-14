@@ -1,4 +1,4 @@
-<?php 
+<?php
 include 'header.php';
 
 // Ensure session is started
@@ -54,11 +54,11 @@ if (isset($_SESSION['inv'])) {
                                 <th>Qty</th>
                                 <th>Sub Total</th>
                             </tr>
-                            <?php 
-                            $result = mysqli_query($conn, "SELECT p.nama, p.harga, o.qty 
-                                                           FROM produksi o 
-                                                           JOIN produk p ON o.kode_produk = p.kode_produk 
-                                                           WHERE o.kode_customer = '$kode_cs' AND o.invoice = '$inv'");
+                            <?php
+                            $result = mysqli_query($conn, "SELECT p.nama, o.harga, o.qty 
+                                                       FROM produksi o 
+                                                       JOIN produk p ON o.kode_produk = p.kode_produk 
+                                                       WHERE o.kode_customer = '$kode_cs' AND o.invoice = '$inv'");
                             $no = 1;
                             $hasil = 0;
                             while ($rows = mysqli_fetch_assoc($result)) {
@@ -74,13 +74,13 @@ if (isset($_SESSION['inv'])) {
                                     <td><?= $rows['qty']; ?></td>
                                     <td>Rp.<?= number_format($subtotal); ?></td>
                                 </tr>
-                            <?php 
+                            <?php
                                 $no++;
                             }
-                           // Ensure the ongkir value is properly formatted as a number
+                            // Ensure the ongkir value is properly formatted as a number
                             $ongkir = floatval(str_replace(',', '', $ongkir));
                             ?>
-                             <tr>
+                            <tr>
                                 <td colspan="5" style="text-align: right; font-weight: bold;">Ongkir = Rp. <?= number_format($ongkir); ?></td>
                             </tr>
                             <tr>
@@ -123,9 +123,9 @@ if (isset($_SESSION['inv'])) {
                                 <label>Pilih Gambar</label>
                                 <input type="file" name="image" class="form-control">
                             </div>
-                            <button type="submit" id="btnUpload" class="btn btn-warning">Upload</button>
-                         </form>
-                        </div>
+                            <button type="submit" class="btn btn-warning">Upload</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         <?php
@@ -149,13 +149,13 @@ if (isset($_SESSION['inv'])) {
         if (distance < 1) {
             $.ajax({
                 type: 'POST',
-                 url: 'http://localhost/inovasi/cek.php',
-                success: function (data) {
+                url: 'http://localhost/inovasi/cek.php',
+                success: function(data) {
                     console.log(data);
                 }
             });
 
-             clearInterval(x);
+            clearInterval(x);
             document.getElementById("timer").innerHTML = "Batas Waktu Pembayaran Telah Berakhir";
         }
     }, 1000);

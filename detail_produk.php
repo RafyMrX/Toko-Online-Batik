@@ -39,7 +39,7 @@ $row = mysqli_fetch_assoc($result);
                                 } else {
                                     $a = explode(",", $row['harga']);
                                     echo "Rp. ".number_format($a[0])." - ".number_format(end($a));  
-                               
+                                
                                 }
                                 ?>
                             </td>
@@ -55,10 +55,17 @@ $row = mysqli_fetch_assoc($result);
 							$jml = count($arr);
 							?>
                             <td>
-                                <select class="form-control" style="width: 155px;" name="ukuran" id="ukuran">
-                                    <option selected value="allsize">All Size</option>
-                                </select>
-                            </td>
+								<select class="form-control" style="width: 155px;" name="ukuran" id="ukuran">
+										<option selected value="nul">-- Pilih Ukuran --</option>
+									<?php for ($i=0; $i < $jml; $i++) { 
+									?>
+										<option value="<?php echo $arr[$i]; ?>"><?php echo strtoupper($arr[$i]); ?></option>
+
+									<?php } ?>
+
+								</select>
+
+							</td>
                         </tr>
                         <tr>
                             <td><b>Jumlah</b></td>
@@ -78,45 +85,39 @@ $row = mysqli_fetch_assoc($result);
                 }
                 ?>
                 <a href="index.php" class="btn btn-warning"> Kembali Belanja</a>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
-</div>    
 
+
+</div>    
 <br>
 <br>
 <br>
 
 <script type="text/javascript">
+
     $(document).ready(function(){
+
         $("#ukuran").change(function(){
+            //Mengambil value dari option select provinsi asal, kabupaten, kurir, berat kemudian parameternya dikirim menggunakan ajax 
             var ukuran = $('#ukuran').val();
-            
-            if (ukuran === 'allsize') {
-                // Tampilkan notifikasi jika ukuran dipilih "All Size"
-                $("#notif").fadeIn().delay(3000).fadeOut();
-                
-                // Reset harga dan value setharga
-                $("#harga").html("<?php echo "Rp.".number_format($row['harga']); ?>");
-                $("#setharga").val("<?php echo $row['harga']; ?>");
-            } else {
-                var kode =  $('#kode').val();
-                
-                // Kirim permintaan AJAX hanya jika ukuran bukan "All Size"
-                $.ajax({
-                    type : 'POST',
-                    url : 'http://localhost/TOKO-ONLINE-BATIK/cekharga.php',
-                    data :  {'ukuran' : ukuran, 'kode' : kode},
-                    success: function (data) {
-                        var arr = data.split("|");
-                        $("#harga").html(arr[0]);
-                        $("#setharga").val(arr[1]);
-                    }
-                });
-            }
-        });
-    });
-</script>
+            var kode =  $('#kode').val();
+			
+            $.ajax({
+				type : 'POST',
+				url : 'http://localhost/inovasi/cekharga.php',
+				data :  {'ukuran' : ukuran, 'kode' : kode},
+				success: function (data) {
+				var arr = data.split("|");
+
+				$("#harga").html(arr[0]);
+				$("#setharga").val(arr[1]);
+				}
+			});
+		});
+	});
+</script>	
 
 <?php 
 include 'footer.php';

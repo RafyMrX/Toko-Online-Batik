@@ -21,10 +21,51 @@ if(isset($_POST['submit'])){
 
     .container {
         flex: 1;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     }
 
     body {
-        background-color: #aec6cf; /* Warna biru pastel */
+        background: url('path/to/electronics-theme-background.jpg') no-repeat center center fixed;
+        background-size: cover;
+        color: #333;
+    }
+
+    h2 {
+        color: #007BFF;
+    }
+
+    .btn-primary {
+        background-color: #007BFF;
+        border-color: #007BFF;
+        color: white;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        border-color: #28a745;
+        color: white;
+    }
+
+    .btn-default {
+        background-color: #f8f9fa;
+        border-color: #ced4da;
+        color: #333;
+    }
+
+    .table th, .table td {
+        vertical-align: middle;
+    }
+
+    .table th {
+        background-color: #007BFF;
+        color: white;
+    }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: rgba(0, 123, 255, 0.1);
     }
 
     @media print {

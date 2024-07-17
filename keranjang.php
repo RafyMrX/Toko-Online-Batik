@@ -111,7 +111,7 @@ if (isset($_POST['submit1'])) {
                 </tr>
                 ";
             }
-        } else {
+            } else {
             echo "<tr>
                 <td colspan='7' class='text-center bg-danger'>
                     <h5><b>SILAHKAN LOGIN TERLEBIH DAHULU SEBELUM BERBELANJA</b></h5>

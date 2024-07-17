@@ -22,35 +22,70 @@ if (isset($_GET['page'])) {
         margin: 0;
         display: flex;
         flex-direction: column;
-        background-color: #aec6cf; /* Pastel blue background */
+        background: url('path/to/electronics-theme-background.jpg') no-repeat center center fixed;
+        background-size: cover;
+        color: #333;
     }
 
     .container {
         flex: 1;
-        padding: 0px; /* Add padding for better spacing */
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     }
 
     table {
         border-collapse: collapse;
         width: 100%;
         margin: 20px 0;
+        background-color: white;
+        border-radius: 10px;
+        overflow: hidden;
     }
+
     th, td {
         padding: 12px;
         text-align: left;
         border: 1px solid #ddd;
     }
+
     th {
-        background-color: #a9a9a9; /* Lighter blue for header */
-        color: #006064; /* Darker text for contrast */
+        background-color: #007BFF; /* Blue header background */
+        color: white; /* White text */
+        text-align: center; /* Center align text */
     }
+
     tr:hover {
-        background-color: #b2ebf2; /* Hover effect */
+        background-color: #b2ebf2; /* Light blue hover effect */
+    }
+
+    .btn {
+        margin: 5px;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+        color: white;
+    }
+
+    h2 {
+        width: 100%;
+        border-bottom: 4px solid gray;
+        padding-bottom: 5px;
+    }
+
+    footer {
+        background-color: #fff;
+        padding: 10px;
+        text-align: center;
+        width: 100%;
     }
 </style>
 
 <div class="container">
-    <h2 style="width: 100%; border-bottom: 4px solid gray; padding-bottom: 5px;"><b>Data Customer</b></h2>
+    <h2><b>Data Customer</b></h2>
     <table class="table table-striped">
         <thead>
             <tr>

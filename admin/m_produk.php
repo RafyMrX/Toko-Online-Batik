@@ -7,11 +7,17 @@ include 'header.php';
         display: flex;
         flex-direction: column;
         min-height: 100vh; /* Membuat body minimal 100% tinggi viewport */
-        background-color: #b3cde0; /* Warna biru pastel */
+        background: url('path/to/electronics-theme-background.jpg') no-repeat center center fixed;
+        background-size: cover;
+        color: #333;
     }
     .container {
         flex: 1; /* Mengizinkan konten mengisi ruang yang tersisa */
         margin-top: 0px;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     }
     table {
         background-color: white; /* Warna latar tabel */
@@ -19,7 +25,8 @@ include 'header.php';
         overflow: hidden; /* Menghindari overflow */
     }
     th {
-        background-color: #f0f8ff; /* Warna header tabel */
+        background-color: #007BFF; /* Warna header tabel */
+        color: white;
         text-align: center;
     }
     td {
@@ -28,6 +35,21 @@ include 'header.php';
     }
     .btn {
         margin: 5px;
+    }
+    .btn-warning {
+        background-color: #ffc107;
+        border-color: #ffc107;
+        color: white;
+    }
+    .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+        color: white;
+    }
+    .btn-success {
+        background-color: #28a745;
+        border-color: #28a745;
+        color: white;
     }
     footer {
         background-color: #fff; /* Contoh warna footer */
@@ -84,8 +106,6 @@ include 'header.php';
     </table>
     <a href="tm_produk.php" class="btn btn-success"><i class="glyphicon glyphicon-plus-sign"></i> Tambah Produk</a>
 </div>
-
-
 
 <?php 
 include 'footer.php';

@@ -23,14 +23,19 @@ $jml3 = mysqli_num_rows($result3);
             flex-direction: column;
             min-height: 100vh;
             margin: 0;
-            background-color: #FFFFFF; /* Warna perak */
-            color: #000000; /* Warna hitam pekat untuk teks */
+            background: url('path/to/electronics-theme-background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
         }
         .container {
             flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center; /* Center content */
+            background: rgba(255, 255, 255, 0.9); /* White background with transparency */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            padding: 20px;
         }
         .row {
             display: flex;
@@ -43,11 +48,14 @@ $jml3 = mysqli_num_rows($result3);
             margin: 10px;
         }
         .box {
-            background-color: #87CEFA;
             padding: 20px;
             text-align: center;
             border-radius: 8px;
-            color: #000000; /* Warna hitam pekat untuk teks di dalam kotak */
+            color: #fff; /* White text for contrast */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+        .box.blue {
+            background-color: #87CEFA;
         }
         .box.red {
             background-color: #FF0000;
@@ -66,14 +74,41 @@ $jml3 = mysqli_num_rows($result3);
                 display: none;
             }
         }
+        /* Welcome message styling */
+        .welcome-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 20px 40px;
+            border-radius: 10px;
+            font-size: 24px;
+            text-align: center;
+            z-index: 1000;
+            opacity: 0;
+            animation: fadeInOut 3s forwards; /* Animation effect */
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { opacity: 0; }
+        }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+    <div class="welcome-message" id="welcomeMessage">
+        Selamat Datang!
+    </div>
+
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <div class="box">
+                <div class="box blue">
                     <h4>PESANAN BARU</h4>
                     <h4 style="font-size: 36pt;"><b><?= htmlspecialchars($jml1); ?></b></h4>
                 </div>
@@ -102,41 +137,50 @@ $jml3 = mysqli_num_rows($result3);
     <?php include 'footer.php'; ?>
 
     <script>
-        const ctx = document.getElementById('orderChart').getContext('2d');
-        const orderChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Pesanan'],
-                datasets: [
-                    {
-                        label: 'Pesanan Baru',
-                        data: [<?= $jml1; ?>],
-                        backgroundColor: '#87CEFA'
-                    },
-                    {
-                        label: 'Pesanan Dibatalkan',
-                        data: [<?= $jml2; ?>],
-                        backgroundColor: '#FF0000'
-                    },
-                    {
-                        label: 'Pesanan Diterima',
-                        data: [<?= $jml3; ?>],
-                        backgroundColor: '#00FF7F'
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Jumlah Pesanan'
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const welcomeMessage = document.getElementById('welcomeMessage');
+                if (welcomeMessage) {
+                    welcomeMessage.style.display = 'none';
+                }
+            }, 3000); // Hide the welcome message after 3 seconds
+
+            const ctx = document.getElementById('orderChart').getContext('2d');
+            const orderChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Pesanan'],
+                    datasets: [
+                        {
+                            label: 'Pesanan Baru',
+                            data: [<?= $jml1; ?>],
+                            backgroundColor: '#87CEFA'
+                        },
+                        {
+                            label: 'Pesanan Dibatalkan',
+                            data: [<?= $jml2; ?>],
+                            backgroundColor: '#FF0000'
+                        },
+                        {
+                            label: 'Pesanan Diterima',
+                            data: [<?= $jml3; ?>],
+                            backgroundColor: '#00FF7F'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Jumlah Pesanan'
+                            }
                         }
                     }
                 }
-            }
+            });
         });
     </script>
 </body>

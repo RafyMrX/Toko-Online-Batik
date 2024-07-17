@@ -23,14 +23,19 @@ $jml3 = mysqli_num_rows($result3);
             flex-direction: column;
             min-height: 100vh;
             margin: 0;
-            background-color: #FFFFFF; /* Warna perak */
-            color: #000000; /* Warna hitam pekat untuk teks */
+            background: url('path/to/electronics-theme-background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
         }
         .container {
             flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center; /* Center content */
+            background: rgba(255, 255, 255, 0.9); /* White background with transparency */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            padding: 20px;
         }
         .row {
             display: flex;
@@ -43,11 +48,14 @@ $jml3 = mysqli_num_rows($result3);
             margin: 10px;
         }
         .box {
-            background-color: #87CEFA;
             padding: 20px;
             text-align: center;
             border-radius: 8px;
-            color: #000000; /* Warna hitam pekat untuk teks di dalam kotak */
+            color: #fff; /* White text for contrast */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+        .box.blue {
+            background-color: #87CEFA;
         }
         .box.red {
             background-color: #FF0000;
@@ -73,7 +81,7 @@ $jml3 = mysqli_num_rows($result3);
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <div class="box">
+                <div class="box blue">
                     <h4>PESANAN BARU</h4>
                     <h4 style="font-size: 36pt;"><b><?= htmlspecialchars($jml1); ?></b></h4>
                 </div>

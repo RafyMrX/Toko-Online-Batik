@@ -1,15 +1,4 @@
-<?php
-session_start(); // Mulai session (jika belum dimulai)
 
-// Periksa apakah user sudah login, jika tidak, arahkan ke halaman login
-if (!isset($_SESSION['username'])) {
-    header("Location: user_login.php"); // Ganti dengan halaman login Anda
-    exit(); // Pastikan keluar dari skrip setelah redirect
-}
-
-include 'koneksi/koneksi.php'; // Sesuaikan dengan lokasi file koneksi.php Anda
-
-?>
 	<footer style="border-top: 4px solid #d9b712;  background-color: #4d0000">
 		<div class="container" style="padding-bottom: 50px;">
 			<div class="row">

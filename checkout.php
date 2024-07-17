@@ -89,7 +89,7 @@ $rows = mysqli_fetch_assoc($cs);
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="provinsi">Provinsi</label>
-                    <select id="provinsi" name="provinsi" class="form-control">
+                    <select id="provinsi" name="provinsi" class="form-control" onchange="populateCities()">
                         <option value="">Pilih Provinsi</option>
                         <option value="Aceh">Aceh</option>
                         <option value="Bali">Bali</option>
@@ -131,7 +131,9 @@ $rows = mysqli_fetch_assoc($cs);
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="kota">Kota/Kabupaten</label>
-                    <input type="text" class="form-control" id="kota" placeholder="Kota/Kabupaten" name="kota">
+                    <select id="kota" name="kota" class="form-control">
+                        <option value="">Pilih Kota/Kabupaten</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -180,6 +182,220 @@ $rows = mysqli_fetch_assoc($cs);
             return false;
         }
         return true;
+    }
+
+    function populateCities() {
+        var provinsi = document.getElementById("provinsi").value;
+        var kotaSelect = document.getElementById("kota");
+
+        // Clear existing options
+        while (kotaSelect.options.length > 0) {
+            kotaSelect.remove(0);
+        }
+
+        // Populate cities based on selected province
+        switch (provinsi) {
+            case "Aceh":
+                kotaSelect.options[kotaSelect.options.length] = new Option("Banda Aceh", "Banda Aceh");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Sabang", "Sabang");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Lhokseumawe", "Lhokseumawe");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Langsa", "Langsa");
+                break;
+            case "Bali":
+                kotaSelect.options[kotaSelect.options.length] = new Option("Denpasar", "Denpasar");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Badung", "Badung");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Tabanan", "Tabanan");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Gianyar", "Gianyar");
+                break;
+            case "Bangka Belitung":
+                kotaSelect.options[kotaSelect.options.length] = new Option("Pangkal Pinang", "Pangkal Pinang");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Toboali", "Toboali");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Mentok", "Mentok");
+                break;
+            case "Banten":
+                kotaSelect.options[kotaSelect.options.length] = new Option("Serang", "Serang");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Tangerang", "Tangerang");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Cilegon", "Cilegon");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Serang", "Serang");
+                break;
+            case "Bengkulu":
+                kotaSelect.options[kotaSelect.options.length] = new Option("Bengkulu", "Bengkulu");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Curup", "Curup");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Mukomuko", "Mukomuko");
+                break;
+            case "Gorontalo":
+                kotaSelect.options[kotaSelect.options.length] = new Option("Gorontalo", "Gorontalo");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Kwandang", "Kwandang");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Pohuwato", "Pohuwato");
+                break;
+            case "Jakarta":
+                kotaSelect.options[kotaSelect.options.length] = new Option("Jakarta Pusat", "Jakarta Pusat");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Jakarta Utara", "Jakarta Utara");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Jakarta Barat", "Jakarta Barat");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Jakarta Selatan", "Jakarta Selatan");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Jakarta Timur", "Jakarta Timur");
+                break;
+            case "Jambi":
+                kotaSelect.options[kotaSelect.options.length] = new Option("Jambi", "Jambi");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Sungai Penuh", "Sungai Penuh");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Muara Bungo", "Muara Bungo");
+                break;
+            case "Jawa Barat":
+                kotaSelect.options[kotaSelect.options.length] = new Option("Bandung", "Bandung");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Bekasi", "Bekasi");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Depok", "Depok");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Bogor", "Bogor");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Cimahi", "Cimahi");
+                break;
+            case "Jawa Tengah":
+                kotaSelect.options[kotaSelect.options.length] = new Option("Semarang", "Semarang");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Surakarta", "Surakarta");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Pekalongan", "Pekalongan");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Tegal", "Tegal");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Magelang", "Magelang");
+                break;
+            case "Jawa Timur":
+                kotaSelect.options[kotaSelect.options.length] = new Option("Surabaya", "Surabaya");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Malang", "Malang");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Sidoarjo", "Sidoarjo");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Mojokerto", "Mojokerto");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Probolinggo", "Probolinggo");
+                break;
+            case "Kalimantan Barat":
+                kotaSelect.options[kotaSelect.options.length] = new Option("Pontianak", "Pontianak");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Singkawang", "Singkawang");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Ketapang", "Ketapang");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Sambas", "Sambas");
+                break;
+            case "Kalimantan Selatan":
+                kotaSelect.options[kotaSelect.options.length] = new Option("Banjarmasin", "Banjarmasin");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Banjarbaru", "Banjarbaru");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Martapura", "Martapura");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Paringin", "Paringin");
+                break;
+            case "Kalimantan Tengah":
+                kotaSelect.options[kotaSelect.options.length] = new Option("Palangka Raya", "Palangka Raya");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Sampit", "Sampit");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Kuala Kapuas", "Kuala Kapuas");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Muara Teweh", "Muara Teweh");
+                break;
+            case "Kalimantan Timur":
+                kotaSelect.options[kotaSelect.options.length] = new Option("Samarinda", "Samarinda");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Balikpapan", "Balikpapan");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Bontang", "Bontang");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Tenggarong", "Tenggarong");
+                break;
+            case "Kalimantan Utara":
+                kotaSelect.options[kotaSelect.options.length] = new Option("Tanjung Selor", "Tanjung Selor");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Tideng Pale", "Tideng Pale");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Tarakan", "Tarakan");
+                break;
+            case "Kepulauan Riau":
+                kotaSelect.options[kotaSelect.options.length] = new Option("Batam", "Batam");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Tanjung Pinang", "Tanjung Pinang");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Bintan", "Bintan");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Natuna", "Natuna");
+                break;
+            case "Lampung":
+                kotaSelect.options[kotaSelect.options.length] = new Option("Bandar Lampung", "Bandar Lampung");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Metro", "Metro");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Lampung Selatan", "Lampung Selatan");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Lampung Timur", "Lampung Timur");
+                break;
+            case "Maluku":
+                kotaSelect.options[kotaSelect.options.length] = new Option("Ambon", "Ambon");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Tual", "Tual");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Ternate", "Ternate");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Pulau Haruku", "Pulau Haruku");
+                break;
+            case "Maluku Utara":
+                kotaSelect.options[kotaSelect.options.length] = new Option("Ternate", "Ternate");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Tidore Kepulauan", "Tidore Kepulauan");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Labuha", "Labuha");
+                break;
+            case "Nusa Tenggara Barat":
+                kotaSelect.options[kotaSelect.options.length] = new Option("Mataram", "Mataram");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Bima", "Bima");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Sumbawa Besar", "Sumbawa Besar");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Praya", "Praya");
+                break;
+            case "Nusa Tenggara Timur":
+                kotaSelect.options[kotaSelect.options.length] = new Option("Kupang", "Kupang");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Maumere", "Maumere");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Ende", "Ende");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Rote Ndao", "Rote Ndao");
+                break;
+            case "Papua":
+                kotaSelect.options[kotaSelect.options.length] = new Option("Jayapura", "Jayapura");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Merauke", "Merauke");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Biak", "Biak");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Wamena", "Wamena");
+                break;
+            case "Papua Barat":
+                kotaSelect.options[kotaSelect.options.length] = new Option("Manokwari", "Manokwari");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Sorong", "Sorong");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Fak-Fak", "Fak-Fak");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Kaimana", "Kaimana");
+                break;
+            case "Riau":
+                kotaSelect.options[kotaSelect.options.length] = new Option("Pekanbaru", "Pekanbaru");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Dumai", "Dumai");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Bengkalis", "Bengkalis");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Selat Panjang", "Selat Panjang");
+                break;
+            case "Sulawesi Barat":
+                kotaSelect.options[kotaSelect.options.length] = new Option("Mamuju", "Mamuju");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Majene", "Majene");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Polewali Mandar", "Polewali Mandar");
+                break;
+            case "Sulawesi Selatan":
+                kotaSelect.options[kotaSelect.options.length] = new Option("Makassar", "Makassar");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Parepare", "Parepare");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Palopo", "Palopo");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Sengkang", "Sengkang");
+                break;
+            case "Sulawesi Tengah":
+                kotaSelect.options[kotaSelect.options.length] = new Option("Palu", "Palu");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Donggala", "Donggala");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Tentena", "Tentena");
+                break;
+            case "Sulawesi Tenggara":
+                kotaSelect.options[kotaSelect.options.length] = new Option("Kendari", "Kendari");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Baubau", "Baubau");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Raha", "Raha");
+                break;
+            case "Sulawesi Utara":
+                kotaSelect.options[kotaSelect.options.length] = new Option("Manado", "Manado");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Bitung", "Bitung");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Tomohon", "Tomohon");
+                break;
+            case "Sumatera Barat":
+                kotaSelect.options[kotaSelect.options.length] = new Option("Padang", "Padang");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Bukittinggi", "Bukittinggi");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Pariaman", "Pariaman");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Padangpanjang", "Padangpanjang");
+                break;
+            case "Sumatera Selatan":
+                kotaSelect.options[kotaSelect.options.length] = new Option("Palembang", "Palembang");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Prabumulih", "Prabumulih");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Lubuklinggau", "Lubuklinggau");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Pagar Alam", "Pagar Alam");
+                break;
+            case "Sumatera Utara":
+                kotaSelect.options[kotaSelect.options.length] = new Option("Medan", "Medan");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Pematangsiantar", "Pematangsiantar");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Binjai", "Binjai");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Tebing Tinggi", "Tebing Tinggi");
+                break;
+            case "Yogyakarta":
+                kotaSelect.options[kotaSelect.options.length] = new Option("Yogyakarta", "Yogyakarta");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Bantul", "Bantul");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Sleman", "Sleman");
+                kotaSelect.options[kotaSelect.options.length] = new Option("Kulon Progo", "Kulon Progo");
+                break;
+            default:
+                break;
+        }
     }
 </script>
 

@@ -81,10 +81,18 @@ if (isset($_SESSION['inv'])) {
                             $ongkir = floatval(str_replace(',', '', $ongkir));
                             ?>
                             <tr>
-                                <td colspan="5" style="text-align: right; font-weight: bold;">Ongkir = Rp. <?= number_format($ongkir); ?></td>
+                                <?php if ($ongkir > 0): ?>
+                                    <td colspan="5" style="text-align: right; font-weight: bold;">Ongkir = Rp. <?= number_format($ongkir); ?></td>
+                                <?php else: ?>
+                                    <td colspan="5" style="text-align: right; font-weight: bold;"><b>Gratis Ongkir!</b></td>
+                                <?php endif; ?>
                             </tr>
                             <tr>
-                                <td colspan="5" style="text-align: right; font-weight: bold;">Grand Total = Rp. <?= number_format($hasil + $ongkir); ?></td>
+                                <?php if ($ongkir > 0): ?>
+                                    <td colspan="5" style="text-align: right; font-weight: bold;">Grand Total = Rp. <?= number_format($hasil + $ongkir); ?></td>
+                                <?php else: ?>
+                                    <td colspan="5" style="text-align: right; font-weight: bold;">Grand Total = Rp. <?= number_format($hasil); ?></td>
+                                <?php endif; ?>
                             </tr>
                         </table>
                         <h4>Bayar Sesuai Nominal Dibawah ini :</h4>

@@ -74,10 +74,37 @@ $jml3 = mysqli_num_rows($result3);
                 display: none;
             }
         }
+        /* Welcome message styling */
+        .welcome-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 20px 40px;
+            border-radius: 10px;
+            font-size: 24px;
+            text-align: center;
+            z-index: 1000;
+            opacity: 0;
+            animation: fadeInOut 3s forwards; /* Animation effect */
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { opacity: 0; }
+        }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+    <div class="welcome-message" id="welcomeMessage">
+        Selamat Datang!
+    </div>
+
     <div class="container">
         <div class="row">
             <div class="col-md-4">
@@ -110,41 +137,50 @@ $jml3 = mysqli_num_rows($result3);
     <?php include 'footer.php'; ?>
 
     <script>
-        const ctx = document.getElementById('orderChart').getContext('2d');
-        const orderChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Pesanan'],
-                datasets: [
-                    {
-                        label: 'Pesanan Baru',
-                        data: [<?= $jml1; ?>],
-                        backgroundColor: '#87CEFA'
-                    },
-                    {
-                        label: 'Pesanan Dibatalkan',
-                        data: [<?= $jml2; ?>],
-                        backgroundColor: '#FF0000'
-                    },
-                    {
-                        label: 'Pesanan Diterima',
-                        data: [<?= $jml3; ?>],
-                        backgroundColor: '#00FF7F'
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Jumlah Pesanan'
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const welcomeMessage = document.getElementById('welcomeMessage');
+                if (welcomeMessage) {
+                    welcomeMessage.style.display = 'none';
+                }
+            }, 3000); // Hide the welcome message after 3 seconds
+
+            const ctx = document.getElementById('orderChart').getContext('2d');
+            const orderChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Pesanan'],
+                    datasets: [
+                        {
+                            label: 'Pesanan Baru',
+                            data: [<?= $jml1; ?>],
+                            backgroundColor: '#87CEFA'
+                        },
+                        {
+                            label: 'Pesanan Dibatalkan',
+                            data: [<?= $jml2; ?>],
+                            backgroundColor: '#FF0000'
+                        },
+                        {
+                            label: 'Pesanan Diterima',
+                            data: [<?= $jml3; ?>],
+                            backgroundColor: '#00FF7F'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Jumlah Pesanan'
+                            }
                         }
                     }
                 }
-            }
+            });
         });
     </script>
 </body>

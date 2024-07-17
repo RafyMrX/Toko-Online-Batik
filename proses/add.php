@@ -8,7 +8,7 @@ $ukuran = $_GET['ukuran'];
 $berat = $_GET['berat'];
 
 if (isset($_GET['jml'])) {
-	$qty = $_GET['jml'];
+    $qty = $_GET['jml'];
 }
 
 $result = mysqli_query($conn, "SELECT * FROM produk WHERE kode_produk = '$kode_produk'");
@@ -24,43 +24,56 @@ $ukuran_list = explode(',', $row['ukuran']);
 $ukuran_index = array_search($ukuran, $ukuran_list);
 
 if ($ukuran_index === false) {
-	echo "
+    echo "
     <script>
     alert('Ukuran tidak ditemukan!');
     window.location = '../detail_produk.php?produk=" . $kode_produk . "';
     </script>
     ";
-	die;
+    die;
 }
 
-    // Ambil harga berdasarkan indeks ukuran yang ditemukan
+// Ambil harga berdasarkan indeks ukuran yang ditemukan
 $harga = intval($harga_list[$ukuran_index]);
 
+// Periksa apakah produk sudah ada di keranjang
 $cek = mysqli_query($conn, "SELECT * FROM keranjang WHERE kode_produk = '$kode_produk' AND kode_customer = '$kode_cs' AND ukuran = '$ukuran'");
-$jml = mysqli_num_rows($cek);
 $row1 = mysqli_fetch_assoc($cek);
+$jml = mysqli_num_rows($cek);
 
-if ($ukuran == $row1['ukuran'] || $jml > 0) {
-	$set = $row1['qty'] + $qty;
-	$update = mysqli_query($conn, "UPDATE keranjang SET qty = '$set' WHERE kode_produk = '$kode_produk' AND kode_customer = '$kode_cs' AND ukuran = '$ukuran'");
-	if ($update) {
-		echo "
+if ($jml > 0) {
+    $set = $row1['qty'] + $qty;
+    $update = mysqli_query($conn, "UPDATE keranjang SET qty = '$set' WHERE kode_produk = '$kode_produk' AND kode_customer = '$kode_cs' AND ukuran = '$ukuran'");
+    if ($update) {
+        echo "
         <script>
         alert('BERHASIL DITAMBAHKAN KE KERANJANG');
         window.location = '../detail_produk.php?produk=" . $kode_produk . "';
         </script>
         ";
-		die;
-	}
+        die;
+    }
 } else {
-	$insert = mysqli_query($conn, "INSERT INTO keranjang VALUES('', '$kode_cs', '$kode_produk', '$nama_produk', '$qty', '$harga', '$berat', '$ukuran')");
-	if ($insert) {
-		echo "
+    // Jika tidak ada, lakukan insert ke keranjang
+    $insert = mysqli_query($conn, "INSERT INTO keranjang (kode_customer, kode_produk, nama_produk, qty, harga, berat, ukuran) VALUES ('$kode_cs', '$kode_produk', '$nama_produk', '$qty', '$harga', '$berat', '$ukuran')");
+    if ($insert) {
+        echo "
         <script>
         alert('BERHASIL DITAMBAHKAN KE KERANJANG');
         window.location = '../detail_produk.php?produk=" . $kode_produk . "';
         </script>
         ";
-		die;
-	}
+        die;
+    }
 }
+
+// Jika ada kesalahan dalam query atau operasi lainnya
+echo "
+<script>
+alert('GAGAL DITAMBAHKAN KE KERANJANG');
+window.location = '../detail_produk.php?produk=" . $kode_produk . "';
+</script>
+";
+die;
+
+?>

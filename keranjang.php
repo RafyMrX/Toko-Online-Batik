@@ -32,6 +32,7 @@ if (isset($_POST['submit1'])) {
     <h2 style="width: 100%; border-bottom: 4px solid #ff8680"><b>Keranjang</b></h2>
     <table class="table table-striped">
         <?php
+        $jml = 0; // Initialize the variable to avoid undefined variable error
         if (isset($_SESSION['user'])) {
             $kode_cs = $_SESSION['kd_cs'];
             // CEK JUMLAH KERANJANG
@@ -110,7 +111,7 @@ if (isset($_POST['submit1'])) {
                 </tr>
                 ";
             }
-        } else {
+            } else {
             echo "<tr>
                 <td colspan='7' class='text-center bg-danger'>
                     <h5><b>SILAHKAN LOGIN TERLEBIH DAHULU SEBELUM BERBELANJA</b></h5>

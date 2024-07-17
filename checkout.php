@@ -1,31 +1,8 @@
 <?php
 include 'header.php';
-
 $kd = mysqli_real_escape_string($conn, $_GET['kode_cs']);
 $cs = mysqli_query($conn, "SELECT * FROM customer WHERE kode_customer = '$kd'");
 $rows = mysqli_fetch_assoc($cs);
-
-// Proses form jika ada data POST yang dikirimkan
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Ambil data dari form
-    $nama = $_POST['nama'];
-    $provinsi = $_POST['provinsi'];
-    $kota = $_POST['kota'];
-    $alamat = $_POST['almt'];
-    $kode_pos = $_POST['kopos'];
-    $kurir = $_POST['kurir'];
-
-    // Validasi jika ada field yang kosong
-    if (empty($nama) || empty($provinsi) || empty($kota) || empty($alamat) || empty($kode_pos) || empty($kurir)) {
-        echo '<div class="alert alert-danger" role="alert">Harap lengkapi semua kolom pada form!</div>';
-    } else {
-        // Lanjut ke proses order karena semua field sudah diisi
-        // Lakukan proses order di sini
-        // Misalnya, redirect ke halaman proses order
-        header('Location: proses/order.php');
-        exit;
-    }
-}
 ?>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -35,7 +12,57 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="col-md-6">
             <h4>Daftar Pesanan</h4>
             <table class="table table-striped">
-                <!-- Isi tabel pesanan -->
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama</th>
+                        <th>Ukuran</th>
+                        <th>Harga</th>
+                        <th>Qty</th>
+                        <th>Sub Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $result = mysqli_query($conn, "SELECT k.*, p.nama AS nama_produk, p.harga AS harga_produk, p.ukuran AS ukuran_produk FROM keranjang k JOIN produk p ON k.kode_produk = p.kode_produk WHERE k.kode_customer = '$kd'");
+
+                    $no = 1;
+                    $grand_total = 0;
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        // Ambil harga dan ukuran dari produk
+                        $harga_list = explode(',', $row['harga_produk']);
+                        $ukuran_list = explode(',', $row['ukuran_produk']);
+
+                        // Temukan indeks ukuran yang sesuai
+                        $ukuran_index = array_search($row['ukuran'], $ukuran_list);
+
+                        if ($ukuran_index !== false) {
+                            $harga = floatval($harga_list[$ukuran_index]);
+                        } else {
+                            $harga = 0; // Handle jika ukuran tidak ditemukan
+                        }
+
+                        $qty = intval($row['qty']);
+                        $subtotal = $harga * $qty;
+                        $grand_total += $subtotal;
+                    ?>
+                        <tr>
+                            <td><?= $no; ?></td>
+                            <td><?= $row['nama_produk']; ?></td>
+                            <td><?= strtoupper($row['ukuran']); ?></td>
+                            <td>Rp.<?= number_format($harga); ?></td>
+                            <td><?= $qty; ?></td>
+                            <td>Rp.<?= number_format($subtotal); ?></td>
+                        </tr>
+                    <?php
+                        $no++;
+                    }
+                    ?>
+                    <tr>
+                        <td colspan="5" style="text-align: right; font-weight: bold;">Grand Total</td>
+                        <td>Rp.<?= number_format($grand_total); ?></td>
+                    </tr>
+                </tbody>
             </table>
         </div>
     </div>
@@ -51,14 +78,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </div>
     <br>
-    <form action="" method="POST">
+    <form id="checkoutForm" action="proses/order.php" method="POST" onsubmit="return validateForm()">
         <input type="hidden" name="kode_cs" value="<?= $kd; ?>">
-        <!-- Input form untuk nama, provinsi, kota, alamat, kode pos, kurir -->
+        <input type="hidden" id="berat" name="berat" value="<?= $jum; ?>">
         <div class="form-group">
             <label for="exampleInputEmail1">Nama</label>
             <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Nama" name="nama" style="width: 557px;" value="<?= $rows['nama']; ?>" readonly>
         </div>
-        <!-- Input untuk provinsi, kota/kabupaten, alamat, kode pos, kurir -->
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
@@ -67,7 +93,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <option value="">Pilih Provinsi</option>
                         <option value="Aceh">Aceh</option>
                         <option value="Bali">Bali</option>
-                        <!-- Daftar provinsi lainnya -->
+                        <option value="Bangka Belitung">Bangka Belitung</option>
+                        <option value="Banten">Banten</option>
+                        <option value="Bengkulu">Bengkulu</option>
+                        <option value="Gorontalo">Gorontalo</option>
+                        <option value="Jakarta">Jakarta</option>
+                        <option value="Jambi">Jambi</option>
+                        <option value="Jawa Barat">Jawa Barat</option>
+                        <option value="Jawa Tengah">Jawa Tengah</option>
+                        <option value="Jawa Timur">Jawa Timur</option>
+                        <option value="Kalimantan Barat">Kalimantan Barat</option>
+                        <option value="Kalimantan Selatan">Kalimantan Selatan</option>
+                        <option value="Kalimantan Tengah">Kalimantan Tengah</option>
+                        <option value="Kalimantan Timur">Kalimantan Timur</option>
+                        <option value="Kalimantan Utara">Kalimantan Utara</option>
+                        <option value="Kepulauan Riau">Kepulauan Riau</option>
+                        <option value="Lampung">Lampung</option>
+                        <option value="Maluku">Maluku</option>
+                        <option value="Maluku Utara">Maluku Utara</option>
+                        <option value="Nusa Tenggara Barat">Nusa Tenggara Barat</option>
+                        <option value="Nusa Tenggara Timur">Nusa Tenggara Timur</option>
+                        <option value="Papua">Papua</option>
+                        <option value="Papua Barat">Papua Barat</option>
+                        <option value="Riau">Riau</option>
+                        <option value="Sulawesi Barat">Sulawesi Barat</option>
+                        <option value="Sulawesi Selatan">Sulawesi Selatan</option>
+                        <option value="Sulawesi Tengah">Sulawesi Tengah</option>
+                        <option value="Sulawesi Tenggara">Sulawesi Tenggara</option>
+                        <option value="Sulawesi Utara">Sulawesi Utara</option>
+                        <option value="Sumatera Barat">Sumatera Barat</option>
+                        <option value="Sumatera Selatan">Sumatera Selatan</option>
+                        <option value="Sumatera Utara">Sumatera Utara</option>
+                        <option value="Yogyakarta">Yogyakarta</option>
                     </select>
                 </div>
             </div>
@@ -109,31 +166,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <a href="keranjang.php" class="btn btn-danger">Cancel</a>
     </form>
 </div>
-
 <script type="text/javascript">
-    $(document).ready(function() {
-        $('#provinsi').change(function() {
-            var provinsi = $(this).val();
-            // Ajax untuk mengambil data kota/kabupaten berdasarkan provinsi
-            $.ajax({
-                type: 'POST',
-                url: 'get_kota.php',
-                data: 'provinsi=' + provinsi,
-                success: function(response) {
-                    $("#kota").val(response);
-                }
-            });
-        });
+    function validateForm() {
+        var nama = document.forms["checkoutForm"]["nama"].value;
+        var provinsi = document.forms["checkoutForm"]["provinsi"].value;
+        var kota = document.forms["checkoutForm"]["kota"].value;
+        var alamat = document.forms["checkoutForm"]["almt"].value;
+        var kodePos = document.forms["checkoutForm"]["kopos"].value;
+        var kurir = document.forms["checkoutForm"]["kurir"].value;
 
-        $("#kurir").change(function() {
-            var kurir = $(this).val();
-            // Penanganan untuk memilih kurir
-        });
-
-        $("select[name=paket]").change(function() {
-            // Penanganan untuk memilih paket pengiriman
-        });
-    });
+        if (nama == "" || provinsi == "" || kota == "" || alamat == "" || kodePos == "" || kurir == "-- Pilih Kurir --") {
+            alert("Harap lengkapi semua field sebelum melanjutkan proses order.");
+            return false;
+        }
+        return true;
+    }
 </script>
 
 <?php

@@ -84,6 +84,7 @@ if(isset($_SESSION['kd_cs'])){
 							<ul class="dropdown-menu">
 								<li><a href="user_login.php">login</a></li>
 								<li><a href="register.php">Register</a></li>
+								<li><a href=" '../../admin/index.php">Admin</a></li>
 							</ul>
 						</li>
 						<?php 

@@ -2,6 +2,7 @@
 session_start();
 
 include '../koneksi/koneksi.php';
+
 $kd_cs = $_POST['kode_cs'];
 $nama = $_POST['nama'];
 $prov = $_POST['prov'];
@@ -15,13 +16,12 @@ $paket = $_POST['paket'];
 $ongkir = $_POST['ongkir'];
 $etd = $_POST['estimasi'];
 
-$tanggal = date('M d, Y H:i:s', time() + (60*60));
-$t = date('yy-m-d');
+// Mendapatkan tanggal dan waktu saat ini
+$tanggal = date('Y-m-d H:i:s'); // Format tanggal MySQL
+$t = date('Y-m-d'); // Format tanggal hanya tanggal
 
-$time = date('H:i:s');
-
-
-$kode = mysqli_query($conn, "SELECT invoice from produksi order by invoice desc");
+// Membuat format invoice baru
+$kode = mysqli_query($conn, "SELECT invoice FROM produksi ORDER BY invoice DESC");
 $data = mysqli_fetch_assoc($kode);
 $num = substr($data['invoice'], 3, 4);
 $add = (int) $num + 1;
@@ -29,14 +29,13 @@ if(strlen($add) == 1){
 	$format = "INV000".$add;
 }else if(strlen($add) == 2){
 	$format = "INV00".$add;
-}
-else if(strlen($add) == 3){
+}else if(strlen($add) == 3){
 	$format = "INV0".$add;
 }else{
 	$format = "INV".$add;
 }
 
-
+// Memproses keranjang belanja
 $keranjang = mysqli_query($conn, "SELECT * FROM keranjang WHERE kode_customer = '$kd_cs'");
 $a = 0;
 while($row = mysqli_fetch_assoc($keranjang)){
@@ -50,45 +49,41 @@ while($row = mysqli_fetch_assoc($keranjang)){
 
 	$sub = $row['harga'] * $row['qty'];
 	$a += $sub;
-	
 
-	$order = mysqli_query($conn, "INSERT INTO produksi VALUES('','$format','$kd_cs','$kd_produk','$nama_produk','$qty','$harga','$ukuran','$status','$tanggal','$prov','$kota','$alamat','$kopos','$ekspedisi','$paket','$ongkir','$etd','0','0','0','0','$time','','$t')");
-
+	// Memasukkan data pesanan ke tabel produksi
+$order = mysqli_query($conn, "INSERT INTO produksi VALUES('', '$format', '$kd_cs', '$kd_produk', '$nama_produk', '$qty', '$harga', '$ukuran', '$status', '$tanggal', '$prov', '$kota', '$alamat', '$kopos', '$ekspedisi', '$paket', '$ongkir', '$etd', '0', '0', '0', '0', '$t', '$time', '$t')");
 }
-$ses_inv = $_SESSION['inv'] = $format;
-$ses_cek = $_SESSION['cek'] = true;
 
+// Menyimpan invoice ke dalam session untuk digunakan di halaman selesai.php
+$_SESSION['inv'] = $format;
+$_SESSION['cek'] = true;
+
+// Menambahkan nilai acak untuk total pembayaran agar unik
 $nominal = $a;
 $sub = substr($nominal,-3);
-			$sub2 = substr($nominal,-2);
-			$sub3 = substr($nominal,-1);
+$sub2 = substr($nominal,-2);
+$sub3 = substr($nominal,-1);
  
-			$total =  rand(0, 999);
-			$total2 =  rand(0, 99);
-			$total3 =  rand(0, 9);
+$total =  rand(0, 999);
+$total2 =  rand(0, 99);
+$total3 =  rand(0, 9);
 
-				if($sub==0){
-					$hasil =  $nominal + $total; 
-
-				}if($sub2 == 0){
-					$hasil = $nominal + $total2; 
-
-				}if($sub3 == 0){
-					$hasil = $nominal + $total3; 
-
-				}
-
-
-
-$update = mysqli_query($conn, "UPDATE produksi set grand_total = '$hasil' where kode_customer = '$kd_cs' and timess = '$time'");
-
-
-$del_keranjang = mysqli_query($conn,"DELETE FROM keranjang WHERE kode_customer = '$kd_cs'");
-
-if($del_keranjang){
-	header("location:../selesai.php");
+if($sub==0){
+	$hasil =  $nominal + $total; 
+}if($sub2 == 0){
+	$hasil = $nominal + $total2; 
+}if($sub3 == 0){
+	$hasil = $nominal + $total3; 
 }
 
+// Memperbarui grand total pada tabel produksi
+$update = mysqli_query($conn, "UPDATE produksi SET grand_total = '$hasil' WHERE kode_customer = '$kd_cs' AND timess = '$time'");
 
+// Menghapus data keranjang belanja setelah proses selesai
+$del_keranjang = mysqli_query($conn, "DELETE FROM keranjang WHERE kode_customer = '$kd_cs'");
 
-?>
+// Redirect ke halaman selesai.php setelah selesai
+if ($del_keranjang) {
+	header("location:../selesai.php");
+}
+			

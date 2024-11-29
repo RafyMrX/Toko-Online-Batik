@@ -79,6 +79,7 @@ INSERT INTO `customer` (`kode_customer`, `nama`, `email`, `username`, `password`
 ('C0004', 'Kain', 'izuddinkhubi@gmail.com', 'kain', '$2y$10$0mJr/adDSREVRt23iBYkfe4mspCHeZBpCq9hL8MXw567fJd.FCZsi', '12344'),
 ('C0005', 'Kusuma', 'izuddinkhubi@gmail.com', 'kusuma', '$2y$10$q9LiONu7RQSgAJJSFfTedOrmiHUMbMTaTi04sfvOSA1omsRhHULjK', '7878787'),
 ('C0006', 'Rafi', 'Rafy@gmail.com', 'rafymrx', '$2y$10$dOlBFaimo9eDptB/cpvU1.8qWN2MmMK5DDZacbZgKAxwEHb5LWbtm', '087804616097');
+('C0007', 'test', 'test@test', 'test', '$2y$10$s.Yx34.WGRWyo.to6zt.yeK0HcTTTiJodSLxKZx2/ViwfsemhArfy', 'test');
 
 -- --------------------------------------------------------
 
@@ -123,7 +124,7 @@ CREATE TABLE `keranjang` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `produk`
+-- Struktur dari tabel `produk`
 --
 
 CREATE TABLE `produk` (
@@ -144,6 +145,7 @@ INSERT INTO `produk` (`kode_produk`, `nama`, `image`, `deskripsi`, `harga`, `uku
 ('P0001', 'Mega Mendung', '5f8271f209bee.jpg', 'Mega Mendung\r\n									', '20000,30000', 'm,l', '500'),
 ('P0002', 'Batik Sarimbit ', '5f83a163d58a7.jpg', 'Batik Sarimbit dengan motif bagus\r\n			', '15000,18000,20000,30000,50000', 's,m,l,xl,xxl', '100'),
 ('P0003', 'Batik Sarimbit Kuning', '5f83a1b5616e3.jpg', 'Batik sarimbit kuning dengan motif bagus\r\n			', '20000,30000,50000', 's,l,m', '100');
+('P0004', 'test', '66921987859a6.png', '				test\r\n						', '1000,2000,3000', 's,m,l', '200');
 
 -- --------------------------------------------------------
 
@@ -176,7 +178,7 @@ CREATE TABLE `produksi` (
   `grand_total` int(11) NOT NULL,
   `timess` varchar(255) NOT NULL,
   `images` text NOT NULL,
-  `tgl` date NOT NULL
+  `tgl` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -191,6 +193,13 @@ INSERT INTO `produksi` (`id_order`, `invoice`, `kode_customer`, `kode_produk`, `
 (43, 'INV0003', 'C0006', 'P0002', 'Batik Sarimbit ', 1, 30000, 'xl', '0', 'Oct 12, 2020 08:26:53', 'Jawa Timur', 'Surabaya', 'Jl Tanah Merah Indah 1 No 10 C', '60129', 'jne', 'REG 7,000 2-3 Hari', 7000, '2-3', '1', '0', 0, 100009, '07:26:53', '5f83a34f0d970.jpg', '2020-10-12'),
 (47, 'INV0004', 'C0006', 'P0001', 'Mega Mendung', 1, 20000, 'm', 'Pesanan Baru', 'Oct 12, 2020 09:50:17', 'Jawa Timur', 'Surabaya', 'Jl Tanah Merah Indah 1 No 10 C', '60129', 'jne', 'REG 7,000 2-3 Hari', 7000, '2-3', '0', '0', 0, 20009, '08:50:17', '5f83b6a1f19c8.jpg', '2020-10-12'),
 (48, 'INV0005', 'C0006', 'P0003', 'Batik Sarimbit Kuning', 1, 30000, 'l', 'Pesanan Baru', 'Oct 13, 2020 10:26:03', 'Jawa Timur', 'Surabaya', 'Jl Tanah Merah Indah 1 No 10 C', '60129', 'jne', 'REG 7,000 2-3 Hari', 7000, '2-3', '0', '0', 0, 30005, '09:26:03', '', '2020-10-13');
+(72, 'INV0006', 'C0007', 'P0002', 'Batik Sarimbit ', 1, 50000, 'xxl', 'Pesanan Baru', '2024-07-13 12:03:31', '', '', 'zxz', 'zxz', '', '', 0, '', '0', '0', 0, 0, '2024-07-13', '', '2024-07-13'),
+(73, 'INV0007', 'C0007', 'P0002', 'Batik Sarimbit ', 1, 0, 'xxl', 'Pesanan Baru', 'Jul 13, 2024 13:05:03', '', '', 'dwd', 'da', '', '', 0, '', '0', '0', 0, 6, '12:05:03', '', '2424-07-13'),
+(74, 'INV0008', 'C0007', 'P0003', 'Batik Sarimbit Kuning', 1, 30000, 'l', 'Pesanan Baru', '2024-07-13 12:07:19', '', '', 'dada', 'adad', '', '', 0, '', '0', '0', 0, 0, '2024-07-13', '669251dc9338a.png', '2024-07-13'),
+(75, 'INV0008', 'C0007', 'P0003', 'Batik Sarimbit Kuning', 1, 50000, 'm', 'Pesanan Baru', '2024-07-13 12:07:19', '', '', 'dada', 'adad', '', '', 0, '', '0', '0', 0, 0, '2024-07-13', '669251dc9338a.png', '2024-07-13'),
+(76, 'INV0008', 'C0007', 'P0003', 'Batik Sarimbit Kuning', 1, 20000, 's', 'Pesanan Baru', '2024-07-13 12:07:19', '', '', 'dada', 'adad', '', '', 0, '', '0', '0', 0, 0, '2024-07-13', '669251dc9338a.png', '2024-07-13'),
+(77, 'INV0009', 'C0007', 'P0004', 'test', 1, 3000, 'l', 'Pesanan Baru', '2024-07-13 12:18:11', '', '', 'rrgr', 'grgrgr', '', '', 0, '', '0', '0', 0, 0, '2024-07-13', '', '2024-07-13'),
+(78, 'INV0010', 'C0007', 'P0002', 'Batik Sarimbit ', 6, 50000, 'xxl', 'Pesanan Baru', '2024-07-13 12:22:21', '', '', 'dada', 'add', '', '', 0, '', '0', '0', 0, 0, '2024-07-13', '66925570130e4.png', '2024-07-13');
 
 -- --------------------------------------------------------
 

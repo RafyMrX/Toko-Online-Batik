@@ -4,7 +4,7 @@ $provinsi_id = $_GET['prov_id'];
 
 $curl = curl_init();
 curl_setopt_array($curl, array(
-  CURLOPT_URL => "http://api.rajaongkir.com/starter/city?province=$provinsi_id",
+  CURLOPT_URL => "http://rajaapi.ongkir.com/starter/city?province=$provinsi_id",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => "",
   CURLOPT_MAXREDIRS => 10,

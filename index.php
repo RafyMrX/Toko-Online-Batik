@@ -14,7 +14,7 @@ include 'header.php';
 <div class="container">
 
 
-		<h4 class="text-center" style="font-family: arial; padding-top: 10px; padding-bottom: 10px; font-style: italic; line-height: 29px; border-top: 8px double #d9b712; border-bottom: 8px double #d9b712;">Batik Al Barokah merupakan sentra batik tulis di Desa Pakandangan Barat, Bluto, Sumenep, Madura sudah ada sejak zaman penjajahan Belanda dan Kerajaan Sumenep masih berdiri. Sampai sekarang sentra batik tersebut masih bertahan. Sembari tetap mempertahankan tradisi batik tulis, mereka tetap mengikuti perkembangan motif dan desain dalam membatik.</h4>
+		<h4 class="text-center" style="font-family: arial; padding-top: 10px; padding-bottom: 10px; font-style: italic; line-height: 29px; border-top: 8px double #d9b712; border-bottom: 8px double #d9b712;">Batik Yohafa tak sekadar sebuah kerajinan—ia adalah warisan hidup dari masa lalu yang terus bersemi hingga kini. Berakar sejak jaman penjajahan Belanda dan masa gemilang Kerajaan, sentra batik ini menembus zaman dengan gemilangnya. Mereka tidak hanya mempertahankan keaslian batik tulis tradisional, tetapi juga terus mengeksplorasi motif dan desain terkini. Batik Yohafa tidak sekadar bertahan, ia berkembang dengan elegan sesuai dengan arus zaman. Pencetus batik yohafa ini adalah seorang 3 pria yang perkasa, bahkan saat ini batik yohafa masih terus bersinar.</h4>
 
 
 	<h2 style=" width: 100%; border-bottom: 4px solid #d9b712; color:#4d0000; margin-top: 80px;"><b>Produk Kami</b></h2>
